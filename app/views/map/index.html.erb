@@ -1,0 +1,9 @@
+<h1>Food Truck Map</h1>
+<%= form_for :search do |f| %>
+  <%= f.text_field :search, { placeholder: 'Search', "ng-model" => 'searchText' } %>
+  <ul>
+    <li ng-repeat="truck in trucks | filter:searchText">
+      <a ng-click="showTruck(truck)" href="#">{{truck.name}}</a>
+    </li>
+  </ul>
+<% end %>
