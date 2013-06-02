@@ -31,14 +31,14 @@
           <div id="navigation-inner">
             <% if food_business_signed_in? %>
               <p>Hello, <%= current_food_business.name %></p>
+              <p><%= link_to "Log out", destroy_food_business_session_path, method: :delete %></p>
             <% else %>
               <p><a href="<%= new_food_business_session_path %>">Log in</a></p>
             <% end %>
-            <% if flash[:notice] %>
-              <p class="notice"><%= flash[:notice] %></p>
-            <% end %>
-            <% if flash[:error] %>
-              <p class="error"><%= flash[:error] %></p>
+            <% [:notice, :alert, :error].each do |type| %>
+              <% if flash[type] %>
+                <p class="<%= type.to_s %>"><%= flash[type] %></p>
+              <% end %>
             <% end %>
             <%= yield %>
           </div>
