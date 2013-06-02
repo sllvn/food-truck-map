@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130601221710) do
+ActiveRecord::Schema.define(:version => 20130601223858) do
 
   create_table "food_businesses", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -26,9 +26,23 @@ ActiveRecord::Schema.define(:version => 20130601221710) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "name"
+    t.string   "description"
+    t.integer  "location_id"
+    t.string   "twitter_username"
+    t.string   "facebook_username"
+    t.string   "website_url"
   end
 
   add_index "food_businesses", ["email"], :name => "index_food_businesses_on_email", :unique => true
   add_index "food_businesses", ["reset_password_token"], :name => "index_food_businesses_on_reset_password_token", :unique => true
+
+  create_table "locations", :force => true do |t|
+    t.string   "address"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

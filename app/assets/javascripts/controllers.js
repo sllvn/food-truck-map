@@ -8,7 +8,7 @@ angular.module('foodTruckApp.controllers', []).
       marker.bindPopup(popupContent);
     }
 
-    var Truck = $resource('/dummydata.js', { truckId: '@id' });
+    var Truck = $resource('/food_businesses/:foodBusinessId', { truckId: '@id' });
 
     $scope.trucks = Truck.query(function() {});
 

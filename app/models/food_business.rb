@@ -7,5 +7,6 @@ class FoodBusiness < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
+  has_one :location, primary_key: 'location_id', foreign_key: 'id'
   # attr_accessible :title, :body
 end

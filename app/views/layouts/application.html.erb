@@ -30,7 +30,7 @@
         <div id="navigation" ng-controller="FoodTrucksController">
           <div id="navigation-inner">
             <% if food_business_signed_in? %>
-              <p>Hello, <%= current_food_business.email %></p>
+              <p>Hello, <%= current_food_business.name %></p>
             <% else %>
               <p><a href="<%= new_food_business_session_path %>">Log in</a></p>
             <% end %>
