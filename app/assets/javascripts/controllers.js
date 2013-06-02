@@ -11,19 +11,4 @@ angular.module('foodTruckApp.controllers', []).
     var Truck = $resource('/food_businesses/:foodBusinessId', { truckId: '@id' });
 
     $scope.trucks = Truck.query(function() {});
-
-    //var Player = $resource('/players/:playerId', { playerId: '@id' });
-
-    /*$scope.updatePlayers = function() {
-      angular.forEach($scope.players, function(player) {
-        player.points = "Updating...";
-        $http.get('/players/update/' + player.id).
-          success(function(data) {
-            player.points = data.player.points;
-          }).
-          error(function() {
-            player.points = 'Error';
-          })
-      });
-    }; */
   });
