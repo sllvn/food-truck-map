@@ -6,7 +6,7 @@ TODO:
   Add better icons, using https://github.com/lvoogdt/Leaflet.awesome-markers
   Create default super-user account which can add/edit food businesses
   Create edit profile page for food businesses
-  Integrate mobile templates
+  Integrate mobile templates (from http://core2.onepostal.com/foodtruck/checkin.html)
   Find a better model name than "FoodBusiness"
   Add social share functionality after check-in
   Add OAuth login with Twitter/FB
