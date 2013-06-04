@@ -1,0 +1,14 @@
+<h2>Edit Business</h2>
+<%= form_for @business do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+  <%= f.label :twitter_username %>
+  <%= f.text_field :twitter_username %>
+  <%= f.label :facebook_username %>
+  <%= f.text_field :facebook_username %>
+  <%= f.label :website_url %>
+  <%= f.text_field :website_url %>
+  <%= f.submit 'Save Business Profile' %>
+<% end %>
