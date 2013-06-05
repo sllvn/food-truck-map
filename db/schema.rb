@@ -41,8 +41,11 @@ ActiveRecord::Schema.define(:version => 20130601223858) do
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer  "food_business_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
 end

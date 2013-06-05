@@ -3,5 +3,7 @@ Foodtruckmap::Application.routes.draw do
 
   resources :food_businesses
 
+  match "/checkin" => "map#checkin"
+
   root :to => 'map#index'
 end

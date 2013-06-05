@@ -6,6 +6,7 @@ class CreateLocations < ActiveRecord::Migration
       t.float :longitude
       t.datetime :start_time
       t.datetime :end_time
+      t.references :food_business
 
       t.timestamps
     end
