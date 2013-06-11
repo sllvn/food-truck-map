@@ -1,10 +1,11 @@
 TODO:
+  Show food trucks on map
   Show only active food trucks
   Add food truck information to popups
   Add social streams to popups
   Add better icons, using https://github.com/lvoogdt/Leaflet.awesome-markers
-  Create default super-user account which can add/edit food businesses
   Integrate mobile templates (from http://core2.onepostal.com/foodtruck/checkin.html)
   Find a better model name than "FoodBusiness"
   Add social share functionality after check-in
   Add OAuth login with Twitter/FB
+  Create better admin section

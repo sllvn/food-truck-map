@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130601223858) do
+ActiveRecord::Schema.define(:version => 20130611192112) do
 
   create_table "food_businesses", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20130601223858) do
     t.string   "twitter_username"
     t.string   "facebook_username"
     t.string   "website_url"
+    t.boolean  "is_admin"
   end
 
   add_index "food_businesses", ["email"], :name => "index_food_businesses_on_email", :unique => true

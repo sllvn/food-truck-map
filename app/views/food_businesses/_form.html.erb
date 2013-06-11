@@ -1,0 +1,19 @@
+<%= form_for @business do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+    <% if params[:action] == 'new' %>
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation %>
+    <% end %>
+    <%= f.label :twitter_username %>
+    <%= f.text_field :twitter_username %>
+    <%= f.label :facebook_username %>
+    <%= f.text_field :facebook_username %>
+    <%= f.label :website_url %>
+    <%= f.text_field :website_url %>
+    <%= f.submit 'Save Business Profile' %>
+<% end %>

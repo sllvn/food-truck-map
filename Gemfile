@@ -5,9 +5,11 @@ gem 'pg'
 gem 'devise'
 gem 'pry-rails'
 gem 'rabl'
+gem 'jquery-rails'
 
 group :development do
   gem 'sqlite3'
+  gem 'figaro'
 end
 
 group :assets do

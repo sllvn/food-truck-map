@@ -5,3 +5,14 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+FoodBusiness.create({
+    email: 'info@opensaltlake.org',
+    name: 'Open Salt Lake',
+    twitter_username: 'opensaltlake',
+    facebook_username: 'opensaltlake',
+    website_url: 'http://opensaltlake.org',
+    password: ENV['DEFAULT_ADMIN_PASSWORD'],
+    password_confirmation: ENV['DEFAULT_ADMIN_PASSWORD'],
+    is_admin: true
+                    })
