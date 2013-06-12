@@ -1,3 +1,5 @@
+'use strict';
+
 foodTruckApp.factory('currentLocationService', function ($rootScope) {
   var currentLocation = {};
   currentLocation.latlng = "";
