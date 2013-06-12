@@ -1,8 +1,13 @@
 class FoodBusinessesController < ApplicationController
-  before_filter :require_permissions, except: :index
+  before_filter :require_permissions, except: [:index, :show]
 
   def index
-    @food_businesses = FoodBusiness.all
+    @food_businesses = FoodBusiness.food_trucks
+  end
+
+  def show
+    @food_business = FoodBusiness.find(params[:id])
+    render json: @food_business
   end
 
   def edit

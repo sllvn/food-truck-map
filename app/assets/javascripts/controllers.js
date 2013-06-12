@@ -2,35 +2,22 @@
 
 var foodTruckApp = angular.module('foodTruckApp.controllers', []);
 
-// TODO: move to services
-foodTruckApp.factory('currentLocationService', function($rootScope) {
-  var currentLocation = {};
-  currentLocation.latlng = "";
-
-  currentLocation.broadcast = function(latlng) {
-    this.latlng = latlng;
-    $rootScope.$broadcast('currentLocationChanged');
-  };
-
-  return currentLocation;
-});
-
-foodTruckApp.controller('FoodTrucksController', function($scope, $resource, $http, currentLocationService) {
+foodTruckApp.controller('FoodTrucksController', function($scope, $resource, currentLocationService, foodTruckService) {
   $scope.showTruck = function(truck) {
     var marker = L.marker([truck.location.latitude, truck.location.longitude]).addTo(window.map);
     var popupContent = "<h3>" + truck.name + "</h3>";
     marker.bindPopup(popupContent);
   }
 
-  var Truck = $resource('/food_businesses/:foodBusinessId', { truckId: '@id' });
-
-  $scope.trucks = Truck.query(function() {
-    console.log(this);
-    angular.forEach($scope.trucks, function(truck) {
-      console.log(truck);
-    });
-  });
-
+  $scope.trucks = foodTruckService.getTrucks();
+//  $scope.trucks.then(
+//    function(truck) {
+//      console.log(truck);
+//    },
+//    function(response) {
+//      console.log(response);
+//    }
+//  );
 
   $scope.checkInAddress = "";
 
@@ -40,12 +27,15 @@ foodTruckApp.controller('FoodTrucksController', function($scope, $resource, $htt
   });
 });
 
-foodTruckApp.controller('MapController', function($scope, currentLocationService) {
+foodTruckApp.controller('MapController', function($scope, currentLocationService, foodTruckService) {
   $scope.map = L.map('map', {
     center: [40.7638333, -111.8902778],
-    zoom: 15
-  })
-  $scope.map.addLayer(new L.TileLayer("http://a.tile.openstreetmap.org/{z}/{x}/{y}.png"))
+    zoom: 15,
+    minZoom: 12,
+    maxZoom: 16
+  });
+  $scope.map.addLayer(new L.TileLayer("http://a.tile.openstreetmap.org/{z}/{x}/{y}.png"));
+  window.map = $scope.map;
 
   $scope.currentLocationMarker = L.marker();
   $scope.currentLocationMarker.options.draggable = true;
@@ -54,7 +44,7 @@ foodTruckApp.controller('MapController', function($scope, currentLocationService
 
   $scope.onLocationFound = function(e) {
     currentLocationService.broadcast(e.latlng);
-  }
+  };
   $scope.map.on('locationfound', $scope.onLocationFound);
 
   $scope.onCurrentLocationChanged = function(e) {
@@ -66,5 +56,16 @@ foodTruckApp.controller('MapController', function($scope, currentLocationService
     $scope.currentLocationMarker.setLatLng(currentLocationService.latlng);
     $scope.currentLocationMarker.addTo($scope.map);
   });
+
+  $scope.markers = []; // TODO: put markers[] into trucks[] or tie them together somehow?
+  $scope.trucks = foodTruckService.getTrucks();
+  $scope.trucks.then(
+    function(trucks) {
+      angular.forEach(trucks, function(truck) {
+        var marker = L.marker([truck.location.latitude, truck.location.longitude]).addTo($scope.map);
+        $scope.markers.push(marker);
+      });
+    }
+  );
 });
 
