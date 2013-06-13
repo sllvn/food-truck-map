@@ -1,10 +1,9 @@
 TODO:
-  Add food truck information to popups
-  Add better icons, using https://github.com/lvoogdt/Leaflet.awesome-markers
-  Add social streams to popups
-  Show only active food trucks
-  Create better admin section
-  Integrate mobile templates (from http://core2.onepostal.com/foodtruck/checkin.html)
-  Find a better model name than "FoodBusiness"
-  Add OAuth login with Twitter/FB
-  Add social share functionality after check-in
+    Add better icons, using https://github.com/lvoogdt/Leaflet.awesome-markers
+    Add social streams to popups
+    Show only active food trucks
+    Create better admin section
+    Integrate mobile templates (from http://core2.onepostal.com/foodtruck/checkin.html)
+    Find a better model name than "FoodBusiness"
+    Add OAuth login with Twitter/FB
+    Add social share functionality after check-in

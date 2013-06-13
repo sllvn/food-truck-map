@@ -19,7 +19,7 @@ foodTruckApp.controller('FoodTrucksController', function ($scope, $resource, cur
   });
 });
 
-foodTruckApp.controller('MapController', function ($scope, currentLocationService, foodTruckService) {
+foodTruckApp.controller('MapController', function ($scope, $compile, currentLocationService, foodTruckService) {
   $scope.map = L.map('map', {
     center: [40.7638333, -111.8902778],
     zoom: 15,
@@ -32,12 +32,20 @@ foodTruckApp.controller('MapController', function ($scope, currentLocationServic
   $scope.trucks = foodTruckService.getTrucks();
   $scope.trucks.then(
     function (trucks) {
-      angular.forEach(trucks, function (truck) {
+      // TODO: refactoring candidate, truck="trucks[' + iterator + ']"  is ugly, is there a better way to reference correct truck?
+      angular.forEach(trucks, function (truck, iterator) {
         var marker = L.marker([truck.location.latitude, truck.location.longitude]).addTo($scope.map);
+        var popup = marker.bindPopup('<food-truck-popup truck="trucks[' + iterator + ']"/>', { minWidth: 300, maxWidth: 300 });
         $scope.markers.push(marker);
       });
     }
   );
+
+  $scope.map.on('popupopen', function (e) {
+    var popup = angular.element('.leaflet-popup-content');
+    $compile(popup)($scope);
+    $scope.$apply();
+  });
 
   // TODO: abstract all this into locationService
   // ideally something like:

@@ -1,44 +1,45 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <title>SLC Food Truck Map</title>
-        <%= stylesheet_link_tag 'application', media: 'all' %>
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
-        <%= csrf_meta_tags %>
-    </head>
-    <body ng-app="foodTruckApp">
-        <div id="navigation" ng-controller="FoodTrucksController">
-            <div id="navigation-inner">
-                <% if food_business_signed_in? %>
-                    <p>
-                        Hello, <%= link_to current_food_business.display_name, edit_food_business_path(current_food_business) %>.
-                        <% if current_food_business.is_admin %>
-                            <%= link_to 'Add Business', new_food_business_path %> |
-                        <% end %>
-                        <%= link_to 'Log out?', destroy_food_business_session_path, :method => :delete %>
-                    </p>
-                <% else %>
-                    <p><a href="<%= new_food_business_session_path %>">Log in</a></p>
-                <% end %>
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>SLC Food Truck Map</title>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css"/>
+  <%= csrf_meta_tags %>
+</head>
+<body ng-app="foodTruckApp">
+<div id="navigation" ng-controller="FoodTrucksController">
+  <div id="navigation-inner">
+    <% if food_business_signed_in? %>
+        <p>
+          Hello, <%= link_to current_food_business.display_name, edit_food_business_path(current_food_business) %>.
+          <% if current_food_business.is_admin %>
+              <%= link_to 'Add Business', new_food_business_path %> |
+          <% end %>
+          <%= link_to 'Log out?', destroy_food_business_session_path, :method => :delete %>
+        </p>
+    <% else %>
+        <p><a href="<%= new_food_business_session_path %>">Log in</a></p>
+    <% end %>
 
-                <h1><%= link_to 'Food Truck Map', root_path %></h1>
+    <h1><%= link_to 'Food Truck Map', root_path %></h1>
 
-                <% [:notice, :alert, :error].each do |type| %>
-                    <% if flash[type] %>
-                        <p class="<%= type.to_s %>"><%= flash[type] %></p>
-                    <% end %>
-                <% end %>
+    <% [:notice, :alert, :error].each do |type| %>
+        <% if flash[type] %>
+            <p class="<%= type.to_s %>"><%= flash[type] %></p>
+        <% end %>
+    <% end %>
 
-                <%= yield %>
-            </div>
-        </div>
-        <div id="map" ng-controller="MapController"></div>
+    <%= yield %>
+  </div>
+</div>
+<div id="map" ng-controller="MapController"></div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular-resource.min.js"></script>
-        <script src='//cdn.leafletjs.com/leaflet-0.5/leaflet.js'></script>
-        <%= javascript_include_tag 'application' %>
-    </body>
+<%= javascript_include_tag 'jquery', 'jquery_ujs' %>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.min.js"></script>
+<script src='//cdn.leafletjs.com/leaflet-0.5/leaflet.js'></script>
+<%= javascript_include_tag 'application' %>
+</body>
 </html>

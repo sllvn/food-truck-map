@@ -1,0 +1,9 @@
+<div class="food_truck_popup">
+    <h3>{{truck.name}}</h3>
+    <p ng-if="truck.description">{{truck.description}}</p>
+    <div class="social_badges">
+        <!-- TODO: create social badges directive -->
+        <span ng-if="truck.twitter_username"><a href="http://twitter.com/{{truck.twitter_username}}">@{{truck.twitter_username}}</a></span>
+        <span ng-if="truck.facebook_username"><a href="http://facebook.com/{{truck.facebook_username}}">facebook.com/{{truck.facebook_username}}</a></span>
+    </div>
+</div>
