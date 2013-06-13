@@ -1,14 +1,21 @@
 'use strict';
 
+var truckMarker = L.AwesomeMarkers.icon({
+  icon: 'truck',
+  color: 'green'
+});
+var standMarker = L.AwesomeMarkers.icon({
+  icon: 'food',
+  color: 'purple'
+});
+var currentLocationMarker = L.AwesomeMarkers.icon({
+  icon: 'star',
+  color: 'blue'
+});
+
 var foodTruckApp = angular.module('foodTruckApp.controllers', []);
 
 foodTruckApp.controller('FoodTrucksController', function ($scope, $resource, currentLocationService, foodTruckService) {
-  $scope.showTruck = function (truck) {
-    var marker = L.marker([truck.location.latitude, truck.location.longitude]).addTo(window.map);
-    var popupContent = "<h3>" + truck.name + "</h3>";
-    marker.bindPopup(popupContent);
-  }
-
   $scope.trucks = foodTruckService.getTrucks();
 
   $scope.checkInAddress = "";
@@ -34,7 +41,9 @@ foodTruckApp.controller('MapController', function ($scope, $compile, currentLoca
     function (trucks) {
       // TODO: refactoring candidate, truck="trucks[' + iterator + ']"  is ugly, is there a better way to reference correct truck?
       angular.forEach(trucks, function (truck, iterator) {
-        var marker = L.marker([truck.location.latitude, truck.location.longitude]).addTo($scope.map);
+        var marker = L.marker([truck.location.latitude, truck.location.longitude]);
+        marker.options.icon = truck.type == "truck" ? truckMarker : standMarker;
+        marker.addTo($scope.map);
         var popup = marker.bindPopup('<food-truck-popup truck="trucks[' + iterator + ']"/>', { minWidth: 300, maxWidth: 300 });
         $scope.markers.push(marker);
       });
@@ -52,6 +61,7 @@ foodTruckApp.controller('MapController', function ($scope, $compile, currentLoca
   // $scope.currentLocation = locationService.currentLocation
   // which has attribute 'marker' or maybe it's just a separate attribute from locationService
   $scope.currentLocationMarker = L.marker();
+  $scope.currentLocationMarker.options.icon = currentLocationMarker;
   $scope.currentLocationMarker.options.draggable = true;
 
   $scope.map.locate({ setView: true, maxZoom: 15 });

@@ -6,6 +6,7 @@ gem 'devise'
 gem 'pry-rails'
 gem 'rabl'
 gem 'jquery-rails'
+gem 'twitter-bootstrap-rails'
 
 group :development do
   gem 'sqlite3'
