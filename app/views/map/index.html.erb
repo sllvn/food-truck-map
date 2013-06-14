@@ -18,7 +18,7 @@
   <div ng-repeat="distance in distances">
     <h4>{{distance.display_text}}</h4>
     <ul>
-      <li ng-repeat="truck in trucks | withinRange:distance.min:distance.max | filter:searchText">
+      <li ng-repeat="truck in trucks | active | withinRange:distance.min:distance.max | filter:searchText">
         <a ng-click="showTruck(truck)" href="#">{{truck.name}}</a>
       </li>
     </ul>

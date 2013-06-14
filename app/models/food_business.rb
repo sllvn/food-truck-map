@@ -14,4 +14,12 @@ class FoodBusiness < ActiveRecord::Base
   def type
     self.business_type.blank? ? 'stand' : self.business_type
   end
+
+  def status
+    if (self.location.start_time.nil? or self.location.start_time <= Time.now) and (self.location.end_time.nil? or self.location.end_time >= Time.now)
+      'open'
+    else
+      'closed'
+    end
+  end
 end

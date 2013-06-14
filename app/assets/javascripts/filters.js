@@ -13,3 +13,15 @@ foodTruckApp.filter('withinRange', function () {
     return filtered;
   }
 });
+
+foodTruckApp.filter('active', function () {
+  return function (trucks) {
+    var filtered = [];
+    angular.forEach(trucks, function (truck) {
+      if (truck.status == "open") {
+        filtered.push(truck);
+      }
+    });
+    return filtered;
+  };
+})

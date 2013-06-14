@@ -69,12 +69,14 @@ foodTruckApp.controller('MapController', function ($scope, $compile, currentLoca
     function (trucks) {
       // TODO: refactoring candidate, truck="trucks[' + iterator + ']"  is ugly, is there a better way to reference correct truck?
       angular.forEach(trucks, function (truck, iterator) {
-        var marker = L.marker([truck.location.latitude, truck.location.longitude]);
-        marker.options.icon = truck.type == "truck" ? truckMarker : standMarker;
-        marker.addTo($scope.map);
-        marker.truckId = truck.id;
-        var popup = marker.bindPopup('<food-truck-popup truck="trucks[' + iterator + ']"/>', { minWidth: 300, maxWidth: 300 });
-        $scope.markers.push(marker);
+        if (truck.status == "open") {
+          var marker = L.marker([truck.location.latitude, truck.location.longitude]);
+          marker.options.icon = truck.type == "truck" ? truckMarker : standMarker;
+          marker.addTo($scope.map);
+          marker.truckId = truck.id;
+          var popup = marker.bindPopup('<food-truck-popup truck="trucks[' + iterator + ']"/>', { minWidth: 300, maxWidth: 300 });
+          $scope.markers.push(marker);
+        }
       });
     }
   );
