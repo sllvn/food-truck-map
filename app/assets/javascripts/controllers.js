@@ -15,7 +15,7 @@ var currentLocationMarker = L.AwesomeMarkers.icon({
 
 var foodTruckApp = angular.module('foodTruckApp.controllers, foodTruckApp.filters', []);
 
-foodTruckApp.controller('FoodTrucksController', function ($scope, $resource, currentLocationService, foodTruckService) {
+foodTruckApp.controller('FoodTrucksController', function ($scope, $resource, currentLocationService, foodTruckService, broadcastService) {
   // TODO: this is a kludge around $q's promise
   $scope.trucks = [];
   $scope.promisedTrucks = foodTruckService.getTrucks();
@@ -24,6 +24,10 @@ foodTruckApp.controller('FoodTrucksController', function ($scope, $resource, cur
       $scope.trucks = trucks;
     }
   )
+
+  $scope.showTruck = function (truck) {
+    broadcastService.broadcast('showTruck', { truck: truck });
+  }
 
   $scope.distances = [
     { display_text: "Within 1/2 mile", min: 0, max: 0.5 },
@@ -40,8 +44,7 @@ foodTruckApp.controller('FoodTrucksController', function ($scope, $resource, cur
     angular.forEach($scope.trucks, function (truck) {
       truck.distance = currentLatLng.distanceTo(new L.LatLng(truck.location.latitude, truck.location.longitude));
     });
-
-  }
+  };
 
   $scope.checkInAddress = "";
   $scope.$on('currentLocationChanged', function () {
@@ -51,7 +54,7 @@ foodTruckApp.controller('FoodTrucksController', function ($scope, $resource, cur
   });
 });
 
-foodTruckApp.controller('MapController', function ($scope, $compile, currentLocationService, foodTruckService) {
+foodTruckApp.controller('MapController', function ($scope, $compile, currentLocationService, foodTruckService, broadcastService) {
   $scope.map = L.map('map', {
     center: [40.7638333, -111.8902778],
     zoom: 15,
@@ -69,16 +72,26 @@ foodTruckApp.controller('MapController', function ($scope, $compile, currentLoca
         var marker = L.marker([truck.location.latitude, truck.location.longitude]);
         marker.options.icon = truck.type == "truck" ? truckMarker : standMarker;
         marker.addTo($scope.map);
+        marker.truckId = truck.id;
         var popup = marker.bindPopup('<food-truck-popup truck="trucks[' + iterator + ']"/>', { minWidth: 300, maxWidth: 300 });
         $scope.markers.push(marker);
       });
     }
   );
 
+  $scope.$on('showTruck', function () {
+    var truck = broadcastService.message.truck;
+    angular.forEach($scope.markers, function (marker) {
+      if (marker.truckId == truck.id) {
+        marker.openPopup();
+      }
+    });
+  });
+
   $scope.map.on('popupopen', function (e) {
     var popup = angular.element('.leaflet-popup-content');
     $compile(popup)($scope);
-    $scope.$apply();
+    if (!$scope.$$phase) $scope.$digest();
   });
 
   // TODO: abstract all this into locationService

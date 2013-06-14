@@ -12,7 +12,7 @@ foodTruckApp.factory('currentLocationService', function ($rootScope) {
   return currentLocation;
 });
 
-foodTruckApp.factory('foodTruckService', function ($resource, $q) {
+foodTruckApp.factory('foodTruckService', function ($resource, $q, $rootScope) {
   return {
     getTrucks: function () {
       var deferred = $q.defer();
@@ -27,4 +27,22 @@ foodTruckApp.factory('foodTruckService', function ($resource, $q) {
       return deferred.promise;
     }
   };
+});
+
+foodTruckApp.factory('broadcastService', function ($rootScope) {
+  var eventBroadcaster = {};
+  eventBroadcaster.message = '';
+  eventBroadcaster.eventName = '';
+
+  eventBroadcaster.broadcast = function (eventName, message) {
+    this.message = message;
+    this.eventName = eventName;
+    this.sendBroadcast();
+  };
+
+  eventBroadcaster.sendBroadcast = function () {
+    $rootScope.$broadcast(this.eventName);
+  };
+
+  return eventBroadcaster;
 });
