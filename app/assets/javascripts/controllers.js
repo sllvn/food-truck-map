@@ -13,15 +13,40 @@ var currentLocationMarker = L.AwesomeMarkers.icon({
   color: 'blue'
 });
 
-var foodTruckApp = angular.module('foodTruckApp.controllers', []);
+var foodTruckApp = angular.module('foodTruckApp.controllers, foodTruckApp.filters', []);
 
 foodTruckApp.controller('FoodTrucksController', function ($scope, $resource, currentLocationService, foodTruckService) {
-  $scope.trucks = foodTruckService.getTrucks();
+  // TODO: this is a kludge around $q's promise
+  $scope.trucks = [];
+  $scope.promisedTrucks = foodTruckService.getTrucks();
+  $scope.promisedTrucks.then(
+    function (trucks) {
+      $scope.trucks = trucks;
+    }
+  )
+
+  $scope.distances = [
+    { display_text: "Within 1/2 mile", min: 0, max: 0.5 },
+    { display_text: "Within 1 mile", min: 0.5, max: 1 },
+    { display_text: "Within 2 miles", min: 1, max: 2 },
+    { display_text: "Within 5 miles", min: 2, max: 5 },
+    { display_text: "Beyond", min: 5, max: 100 },
+  ];
+
+  $scope.setDistancesFromLocation = function (currentLatLng) {
+    // TODO: what happens if current location loads before trucks?
+    // TODO: make current location service return a promise, and when both that and
+    //       trucks promise are fulfilled, execute this method
+    angular.forEach($scope.trucks, function (truck) {
+      truck.distance = currentLatLng.distanceTo(new L.LatLng(truck.location.latitude, truck.location.longitude));
+    });
+
+  }
 
   $scope.checkInAddress = "";
-
   $scope.$on('currentLocationChanged', function () {
     $scope.checkInAddress = currentLocationService.latlng.lat + ", " + currentLocationService.latlng.lng;
+    $scope.setDistancesFromLocation(currentLocationService.latlng);
     $scope.$apply();
   });
 });
