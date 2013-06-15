@@ -12,20 +12,23 @@ foodTruckApp.factory('currentLocationService', function ($rootScope) {
   return currentLocation;
 });
 
-foodTruckApp.factory('foodTruckService', function ($resource, $q, $rootScope) {
-  return {
-    getTrucks: function () {
-      var deferred = $q.defer();
-      $resource('/food_businesses/:truckId', { truckId: '@truckId' }).query(
-        function (event) {
-          deferred.resolve(event);
-        },
-        function (response) {
-          deferred.reject(event);
-        });
+foodTruckApp.factory('foodTruckService', function ($resource, $rootScope) {
+  var activeTrucks = [];
+  var allTrucks = $resource('/food_businesses').query(
+    function () {
+      angular.forEach(allTrucks, function (truck) {
+        if(truck.status == 'open') {
+          activeTrucks.push(truck);
+        }
+      });
 
-      return deferred.promise;
+      $rootScope.$broadcast('trucksFinishedLoading');
     }
+  );
+
+  return {
+    getTrucks: function () { return allTrucks; },
+    getActiveTrucks: function () { return activeTrucks; }
   };
 });
 

@@ -16,17 +16,10 @@ var currentLocationMarker = L.AwesomeMarkers.icon({
 var foodTruckApp = angular.module('foodTruckApp.controllers, foodTruckApp.filters', []);
 
 foodTruckApp.controller('FoodTrucksController', function ($scope, $resource, currentLocationService, foodTruckService, broadcastService) {
-  // TODO: this is a kludge around $q's promise
-  $scope.trucks = [];
-  $scope.promisedTrucks = foodTruckService.getTrucks();
-  $scope.promisedTrucks.then(
-    function (trucks) {
-      $scope.trucks = trucks;
-    }
-  )
+  $scope.activeTrucks = foodTruckService.getActiveTrucks();
 
   $scope.showTruck = function (truck) {
-    broadcastService.broadcast('showTruck', { truck: truck });
+    broadcastService.broadcast('showTruckPopup', { truck: truck });
   }
 
   $scope.distances = [
@@ -39,9 +32,7 @@ foodTruckApp.controller('FoodTrucksController', function ($scope, $resource, cur
 
   $scope.setDistancesFromLocation = function (currentLatLng) {
     // TODO: what happens if current location loads before trucks?
-    // TODO: make current location service return a promise, and when both that and
-    //       trucks promise are fulfilled, execute this method
-    angular.forEach($scope.trucks, function (truck) {
+    angular.forEach($scope.activeTrucks, function (truck) {
       truck.distance = currentLatLng.distanceTo(new L.LatLng(truck.location.latitude, truck.location.longitude));
     });
   };
@@ -64,24 +55,23 @@ foodTruckApp.controller('MapController', function ($scope, $compile, currentLoca
   $scope.map.addLayer(new L.TileLayer("http://a.tile.openstreetmap.org/{z}/{x}/{y}.png"));
 
   $scope.markers = []; // TODO: put markers[] into trucks[] or tie them together somehow?
-  $scope.trucks = foodTruckService.getTrucks();
-  $scope.trucks.then(
-    function (trucks) {
-      // TODO: refactoring candidate, truck="trucks[' + iterator + ']"  is ugly, is there a better way to reference correct truck?
-      angular.forEach(trucks, function (truck, iterator) {
-        if (truck.status == "open") {
-          var marker = L.marker([truck.location.latitude, truck.location.longitude]);
-          marker.options.icon = truck.type == "truck" ? truckMarker : standMarker;
-          marker.addTo($scope.map);
-          marker.truckId = truck.id;
-          var popup = marker.bindPopup('<food-truck-popup truck="trucks[' + iterator + ']"/>', { minWidth: 300, maxWidth: 300 });
-          $scope.markers.push(marker);
-        }
-      });
-    }
-  );
+  $scope.activeTrucks = foodTruckService.getActiveTrucks();
 
-  $scope.$on('showTruck', function () {
+  $scope.$on('trucksFinishedLoading', function () {
+    angular.forEach($scope.activeTrucks, function (truck, iterator) {
+      var marker = L.marker([truck.location.latitude, truck.location.longitude]);
+      marker.options.icon = truck.type == "truck" ? truckMarker : standMarker;
+      marker.truckId = truck.id;
+      marker.addTo($scope.map);
+
+      // TODO: refactoring candidate, truck="trucks[' + iterator + ']"  is ugly, is there a better way to reference correct truck?
+      var popup = marker.bindPopup('<food-truck-popup truck="activeTrucks[' + iterator + ']"/>', { minWidth: 300, maxWidth: 300 });
+      $scope.markers.push(marker);
+    });
+  });
+
+
+  $scope.$on('showTruckPopup', function () {
     var truck = broadcastService.message.truck;
     angular.forEach($scope.markers, function (marker) {
       if (marker.truckId == truck.id) {

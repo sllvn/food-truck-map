@@ -13,14 +13,13 @@
   <% end %>
   <hr/>
 <% end %>
-<%= form_for :search do |f| %>
-  <%= f.text_field :search, {placeholder: 'Search', 'ng-model' => 'searchText'} %>
-  <div ng-repeat="distance in distances">
-    <h4>{{distance.display_text}}</h4>
-    <ul>
-      <li ng-repeat="truck in trucks | active | withinRange:distance.min:distance.max | filter:searchText">
-        <a ng-click="showTruck(truck)" href="#">{{truck.name}}</a>
-      </li>
-    </ul>
-  </div>
-<% end %>
+
+<input type="text" placeholder="Search" ng-model="searchText" />
+<div ng-repeat="distance in distances">
+  <h4>{{distance.display_text}}</h4>
+  <ul>
+    <li ng-repeat="truck in activeTrucks | withinRange:distance.min:distance.max | filter:searchText">
+      <a ng-click="showTruck(truck)" href="#">{{truck.name}}</a>
+    </li>
+  </ul>
+</div>
