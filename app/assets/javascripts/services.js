@@ -14,7 +14,7 @@ foodTruckApp.factory('currentLocationService', function ($rootScope) {
 
 foodTruckApp.factory('foodTruckService', function ($resource, $rootScope) {
   var activeTrucks = [];
-  var allTrucks = $resource('/food_businesses').query(
+  var allTrucks = $resource('/food_businesses.json').query(
     function () {
       angular.forEach(allTrucks, function (truck) {
         if(truck.status == 'open') {

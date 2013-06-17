@@ -3,6 +3,12 @@ class FoodBusinessesController < ApplicationController
 
   def index
     @food_businesses = FoodBusiness.food_trucks
+    respond_to do |format|
+      format.html do
+        redirect_to root_path unless current_food_business and current_food_business.is_admin
+      end
+      format.json
+    end
   end
 
   def show

@@ -1,0 +1,18 @@
+<h3>Food Business Listing</h3>
+<p><%= link_to 'New Food Business', new_food_business_path() %></p>
+<table class="table table-striped table-condensed table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Last Activity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @food_businesses.each do |fb| %>
+      <tr>
+        <td><%= link_to fb.name, edit_food_business_path(fb) %></td>
+        <td><%= fb.last_sign_in_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
