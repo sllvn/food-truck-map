@@ -1,5 +1,4 @@
 TODO:
-    Don't use email as login, since we won't know their emails before launch
     Add password generator to account creation screens
     Only let people move current location marker when checking in
     Add social streams to popups

@@ -9,6 +9,7 @@
 FoodBusiness.create({
     email: 'info@opensaltlake.org',
     name: 'Open Salt Lake',
+    username: 'opensaltlake',
     twitter_username: 'opensaltlake',
     facebook_username: 'opensaltlake',
     website_url: 'http://opensaltlake.org',
