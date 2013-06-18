@@ -1,6 +1,6 @@
 'use strict';
 
-foodTruckApp.factory('currentLocationService', function ($rootScope) {
+foodTruckApp.factory('currentLocationService', ['$rootScope', function ($rootScope) {
   var currentLocation = {};
   currentLocation.latlng = "";
 
@@ -10,9 +10,9 @@ foodTruckApp.factory('currentLocationService', function ($rootScope) {
   };
 
   return currentLocation;
-});
+}]);
 
-foodTruckApp.factory('foodTruckService', function ($resource, $rootScope) {
+foodTruckApp.factory('foodTruckService', ['$resource', '$rootScope', function ($resource, $rootScope) {
   var activeTrucks = [];
   var allTrucks = $resource('/food_businesses.json').query(
     function () {
@@ -30,9 +30,9 @@ foodTruckApp.factory('foodTruckService', function ($resource, $rootScope) {
     getTrucks: function () { return allTrucks; },
     getActiveTrucks: function () { return activeTrucks; }
   };
-});
+}]);
 
-foodTruckApp.factory('broadcastService', function ($rootScope) {
+foodTruckApp.factory('broadcastService', ['$rootScope', function ($rootScope) {
   var eventBroadcaster = {};
   eventBroadcaster.message = '';
   eventBroadcaster.eventName = '';
@@ -48,4 +48,4 @@ foodTruckApp.factory('broadcastService', function ($rootScope) {
   };
 
   return eventBroadcaster;
-});
+}]);

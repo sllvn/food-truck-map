@@ -15,7 +15,7 @@ var currentLocationMarker = L.AwesomeMarkers.icon({
 
 var foodTruckApp = angular.module('foodTruckApp.controllers, foodTruckApp.filters', []);
 
-foodTruckApp.controller('FoodTrucksController', function ($scope, $resource, currentLocationService, foodTruckService, broadcastService) {
+foodTruckApp.controller('FoodTrucksController', ['$scope', '$resource', 'currentLocationService', 'foodTruckService', 'broadcastService', function ($scope, $resource, currentLocationService, foodTruckService, broadcastService) {
   $scope.activeTrucks = foodTruckService.getActiveTrucks();
 
   $scope.showTruck = function (truck) {
@@ -43,9 +43,9 @@ foodTruckApp.controller('FoodTrucksController', function ($scope, $resource, cur
     $scope.setDistancesFromLocation(currentLocationService.latlng);
     $scope.$apply();
   });
-});
+}]);
 
-foodTruckApp.controller('MapController', function ($scope, $compile, currentLocationService, foodTruckService, broadcastService) {
+foodTruckApp.controller('MapController', ['$scope', '$compile', 'currentLocationService', 'foodTruckService', 'broadcastService', function ($scope, $compile, currentLocationService, foodTruckService, broadcastService) {
   $scope.map = L.map('map', {
     center: [40.7638333, -111.8902778],
     zoom: 15,
@@ -110,5 +110,5 @@ foodTruckApp.controller('MapController', function ($scope, $compile, currentLoca
     $scope.currentLocationMarker.setLatLng(currentLocationService.latlng);
     $scope.currentLocationMarker.addTo($scope.map);
   });
-});
+}]);
 
