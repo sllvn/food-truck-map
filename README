@@ -1,7 +1,6 @@
 TODO:
     Don't use email as login, since we won't know their emails before launch
     Add password generator to account creation screens
-    Don't let randoms create accounts
     Only let people move current location marker when checking in
     Add social streams to popups
     Integrate mobile templates (from http://core2.onepostal.com/foodtruck/checkin.html)
