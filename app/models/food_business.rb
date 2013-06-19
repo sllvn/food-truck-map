@@ -21,7 +21,7 @@ class FoodBusiness < ActiveRecord::Base
   end
 
   def status
-    if (self.location.start_time.nil? or self.location.start_time <= Time.now) and (self.location.end_time.nil? or self.location.end_time >= Time.now)
+    if self.location and (self.location.start_time.nil? or self.location.start_time <= Time.now) and (self.location.end_time.nil? or self.location.end_time >= Time.now)
       'open'
     else
       'closed'
