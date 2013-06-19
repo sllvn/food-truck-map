@@ -9,38 +9,38 @@
   <%= csrf_meta_tags %>
 </head>
 <body ng-app="foodTruckApp" ng-init="user = <%= current_food_business.to_json %>">
-<div id="navigation" ng-controller="FoodTrucksController">
-  <div id="navigation-inner">
-    <% if food_business_signed_in? %>
+  <div id="navigation" ng-controller="FoodTrucksController">
+    <div id="navigation-inner">
+      <% if food_business_signed_in? %>
         <p>
           Hello, <%= link_to '{{user.name}}', edit_food_business_path(current_food_business) %>.
           <%= link_to 'Log out?', destroy_food_business_session_path, :method => :delete %>
         </p>
-    <% else %>
+      <% else %>
         <p><a href="<%= new_food_business_session_path %>">Log in</a></p>
-    <% end %>
+      <% end %>
 
-    <% [:notice, :alert, :error].each do |type| %>
+      <% [:notice, :alert, :error].each do |type| %>
         <% if flash[type] %>
-            <p class="<%= type.to_s %>"><%= flash[type] %></p>
+          <p class="<%= type.to_s %>"><%= flash[type] %></p>
         <% end %>
-    <% end %>
+      <% end %>
 
-    <h1><%= link_to 'Food Truck Map', root_path %></h1>
+      <h1><%= link_to 'Food Truck Map', root_path %></h1>
 
-    <%= yield %>
+      <%= yield %>
+    </div>
   </div>
-</div>
-<div id="map" ng-controller="MapController"></div>
+  <div id="map" ng-controller="MapController"></div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.min.js"></script>
-<script src='//cdn.leafletjs.com/leaflet-0.5/leaflet.js'></script>
-<%= javascript_include_tag 'application' %>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.min.js"></script>
+  <script src='//cdn.leafletjs.com/leaflet-0.5/leaflet.js'></script>
+  <%= javascript_include_tag 'application' %>
 
-<% if Rails.env.development? %>
-  <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-<% end %>
+  <% if Rails.env.development? %>
+    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+  <% end %>
 </body>
 </html>
