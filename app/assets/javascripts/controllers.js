@@ -30,6 +30,13 @@ foodTruckApp.controller('FoodTrucksController', ['$scope', '$resource', 'current
     { display_text: "Beyond", min: 5, max: 100 },
   ];
 
+  $scope.enableCheckin = function () {
+    // TODO: fix this, figure out how to only call enableCheckin when all controllers are loaded, rather than from ng-init
+    setTimeout(function () {
+      broadcastService.broadcast('enableCheckin');
+    }, 200);
+  };
+
   $scope.setDistancesFromLocation = function (currentLatLng) {
     // TODO: what happens if current location loads before trucks?
     angular.forEach($scope.activeTrucks, function (truck) {
@@ -92,7 +99,10 @@ foodTruckApp.controller('MapController', ['$scope', '$compile', 'currentLocation
   // which has attribute 'marker' or maybe it's just a separate attribute from locationService
   $scope.currentLocationMarker = L.marker();
   $scope.currentLocationMarker.options.icon = currentLocationMarker;
-  $scope.currentLocationMarker.options.draggable = true;
+  $scope.$on('enableCheckin', function () {
+    $scope.currentLocationMarker.options.draggable = true;
+  });
+  $scope.$on('disableCheckin', function () { $scope.currentLocationMarker.options.draggable = false; });
 
   $scope.map.locate({ setView: true, maxZoom: 15 });
 
