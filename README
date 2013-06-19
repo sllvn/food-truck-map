@@ -1,6 +1,7 @@
 TODO:
+    Specify type of business on profile screen
+    Refactor FoodBusiness into User, then FoodBusinessController's only purpose is to serve JSON responses
     Add social streams to popups
     Integrate mobile templates (from http://core2.onepostal.com/foodtruck/checkin.html)
-    Find a better model name than "FoodBusiness"
     Add OAuth login with Twitter/FB
     Add social share functionality after check-in
