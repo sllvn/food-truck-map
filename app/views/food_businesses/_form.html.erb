@@ -1,19 +1,28 @@
 <%= form_for @business do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-    <% if params[:action] == 'new' %>
-        <%= f.label :password %>
-        <%= f.password_field :password %>
-        <%= f.label :password_confirmation %>
-        <%= f.password_field :password_confirmation %>
-    <% end %>
-    <%= f.label :twitter_username %>
-    <%= f.text_field :twitter_username %>
-    <%= f.label :facebook_username %>
-    <%= f.text_field :facebook_username %>
-    <%= f.label :website_url %>
-    <%= f.text_field :website_url %>
-    <%= f.submit 'Save Business Profile' %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :username %>
+  <%= f.text_field :username %>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+
+  <% if params[:action] == 'edit' %>
+    <fieldset style="border: 1px solid #333; padding: 10px; margin-bottom: 1em;">
+    <p>Set only if you want to change your password. Changing your password will log you out.</p>
+  <% end %>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %>
+  <% if params[:action] == 'edit' %>
+    </fieldset>
+  <% end %>
+
+  <%= f.label :twitter_username %>
+  <%= f.text_field :twitter_username %>
+  <%= f.label :facebook_username %>
+  <%= f.text_field :facebook_username %>
+  <%= f.label :website_url, 'Website URL' %>
+  <%= f.text_field :website_url %>
+  <%= f.submit 'Save Business Profile' %>
 <% end %>
