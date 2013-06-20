@@ -34,15 +34,11 @@ foodTruckApp.controller('FoodTrucksController', ['$scope', '$resource', '$compil
     { display_text: "Beyond", min: 5, max: 100 },
   ];
 
-
   $scope.setDistancesFromLocation = function (currentLatLng) {
-    // TODO: what happens if current location loads before trucks?
     angular.forEach($scope.activeTrucks, function (truck) {
       truck.distance = currentLatLng.distanceTo(new L.LatLng(truck.location.latitude, truck.location.longitude));
     });
   };
-
-  $scope.checkInAddress = "";
 
   // TODO: move map methods into service
   $scope.map = L.map('map', {
@@ -57,6 +53,10 @@ foodTruckApp.controller('FoodTrucksController', ['$scope', '$resource', '$compil
   $scope.activeTrucks = foodTruckService.getActiveTrucks();
 
   $scope.$on('trucksFinishedLoading', function () {
+    if($scope.currentLocationMarker.getLatLng()) {
+      // if current location loaded first
+      $scope.setDistancesFromLocation($scope.currentLocationMarker.getLatLng());
+    }
     angular.forEach($scope.activeTrucks, function (truck, iterator) {
       var marker = L.marker([truck.location.latitude, truck.location.longitude]);
       marker.options.icon = truck.type == "truck" ? truckMarker : standMarker;
@@ -92,6 +92,7 @@ foodTruckApp.controller('FoodTrucksController', ['$scope', '$resource', '$compil
   };
   $scope.map.on('locationfound', $scope.onLocationFound);
 
+  $scope.checkInAddress = "";
   $scope.currentLocationChanged = function () {
     $scope.checkInAddress = $scope.currentLocationMarker.getLatLng().lat + ", " + $scope.currentLocationMarker.getLatLng().lng;
     $scope.setDistancesFromLocation($scope.currentLocationMarker.getLatLng());
