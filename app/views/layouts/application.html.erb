@@ -3,35 +3,38 @@
 <head>
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SLC Food Truck Map</title>
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css"/>
   <%= csrf_meta_tags %>
 </head>
 <body ng-app="foodTruckApp" ng-init="user = <%= current_food_business.to_json %>" ng-controller="FoodTrucksController">
-  <div id="navigation">
-    <div id="navigation-inner">
-      <% if food_business_signed_in? %>
-        <p>
-          Hello, <%= link_to '{{user.name}}', edit_food_business_path(current_food_business) %>.
-          <%= link_to 'Log out?', destroy_food_business_session_path, :method => :delete %>
-        </p>
-      <% else %>
-        <p><a href="<%= new_food_business_session_path %>">Log in</a></p>
-      <% end %>
-
-      <% [:notice, :alert, :error].each do |type| %>
-        <% if flash[type] %>
-          <p class="<%= type.to_s %>"><%= flash[type] %></p>
+  <div class="container-fluid fill-height remove-padding">
+    <div class="row-fluid fill-height">
+      <div class="span3 navigation">
+        <% if food_business_signed_in? %>
+          <p>
+            Hello, <%= link_to '{{user.name}}', edit_food_business_path(current_food_business) %>.
+            <%= link_to 'Log out?', destroy_food_business_session_path, :method => :delete %>
+          </p>
+        <% else %>
+          <p><a href="<%= new_food_business_session_path %>">Log in</a></p>
         <% end %>
-      <% end %>
 
-      <h1><%= link_to 'Food Truck Map', root_path %></h1>
+        <% [:notice, :alert, :error].each do |type| %>
+          <% if flash[type] %>
+            <p class="<%= type.to_s %>"><%= flash[type] %></p>
+          <% end %>
+        <% end %>
 
-      <%= yield %>
+        <h1><%= link_to 'Food Truck Map', root_path %></h1>
+
+        <%= yield %>
+      </div>
+      <div class="span9 fill-height" id="map"></div>
     </div>
   </div>
-  <div id="map"></div>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>

@@ -44,7 +44,7 @@ foodTruckApp.controller('FoodTrucksController', ['$scope', '$resource', '$compil
   $scope.map = L.map('map', {
     center: [40.7638333, -111.8902778],
     zoom: 15,
-    minZoom: 12,
+    minZoom: 13,
     maxZoom: 16
   });
   $scope.map.addLayer(new L.TileLayer("http://a.tile.openstreetmap.org/{z}/{x}/{y}.png"));
