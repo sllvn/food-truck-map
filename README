@@ -1,5 +1,4 @@
 TODO:
-    Remove unique constraint on email, set constraint on email OR username
     Specify type of business on profile screen
     Allow setting location of businesses as admin
     Refactor FoodBusiness into User, then FoodBusinessController's only purpose is to serve JSON responses

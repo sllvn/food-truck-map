@@ -7,6 +7,8 @@ class FoodBusiness < ActiveRecord::Base
   attr_accessor :login
   attr_accessible :login
 
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
+
   has_one :location
 
   scope :food_trucks, where('is_admin is null or is_admin = ?', false)

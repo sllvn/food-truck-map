@@ -11,44 +11,43 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130618232141) do
+ActiveRecord::Schema.define(:version => 20130620204315) do
 
   create_table "food_businesses", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-    t.string   "name"
-    t.string   "description"
-    t.integer  "location_id"
-    t.string   "twitter_username"
-    t.string   "facebook_username"
-    t.string   "website_url"
-    t.boolean  "is_admin"
-    t.string   "business_type"
-    t.string   "username"
+    t.string    "email",                  :default => "", :null => false
+    t.string    "encrypted_password",     :default => "", :null => false
+    t.string    "reset_password_token"
+    t.timestamp "reset_password_sent_at"
+    t.timestamp "remember_created_at"
+    t.integer   "sign_in_count",          :default => 0
+    t.timestamp "current_sign_in_at"
+    t.timestamp "last_sign_in_at"
+    t.string    "current_sign_in_ip"
+    t.string    "last_sign_in_ip"
+    t.timestamp "created_at",                             :null => false
+    t.timestamp "updated_at",                             :null => false
+    t.string    "name"
+    t.string    "description"
+    t.integer   "location_id"
+    t.string    "twitter_username"
+    t.string    "facebook_username"
+    t.string    "website_url"
+    t.boolean   "is_admin"
+    t.string    "business_type"
+    t.string    "username"
   end
 
-  add_index "food_businesses", ["email"], :name => "index_food_businesses_on_email", :unique => true
   add_index "food_businesses", ["reset_password_token"], :name => "index_food_businesses_on_reset_password_token", :unique => true
 
   create_table "locations", :force => true do |t|
-    t.string   "address"
-    t.float    "latitude"
-    t.float    "longitude"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.integer  "food_business_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.string    "address"
+    t.float     "latitude"
+    t.float     "longitude"
+    t.timestamp "start_time"
+    t.timestamp "end_time"
+    t.integer   "food_business_id"
+    t.timestamp "created_at",       :null => false
+    t.timestamp "updated_at",       :null => false
   end
 
 end
