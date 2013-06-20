@@ -1,7 +1,9 @@
 TODO:
-    Specify type of business on profile screen
     Remove unique constraint on email, set constraint on email OR username
+    Specify type of business on profile screen
+    Allow setting location of businesses as admin
     Refactor FoodBusiness into User, then FoodBusinessController's only purpose is to serve JSON responses
+    Searching in sidebar should also filter markers on map
     Add social streams to popups
     Integrate mobile templates (from http://core2.onepostal.com/foodtruck/checkin.html)
     Add OAuth login with Twitter/FB
