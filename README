@@ -1,5 +1,6 @@
 TODO:
     Specify type of business on profile screen
+    Remove unique constraint on email, set constraint on email OR username
     Refactor FoodBusiness into User, then FoodBusinessController's only purpose is to serve JSON responses
     Add social streams to popups
     Integrate mobile templates (from http://core2.onepostal.com/foodtruck/checkin.html)
