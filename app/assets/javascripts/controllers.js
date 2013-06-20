@@ -99,10 +99,18 @@ foodTruckApp.controller('MapController', ['$scope', '$compile', 'currentLocation
   // which has attribute 'marker' or maybe it's just a separate attribute from locationService
   $scope.currentLocationMarker = L.marker();
   $scope.currentLocationMarker.options.icon = currentLocationMarker;
-  $scope.currentLocationMarker.options.draggable = true;
+  $scope.placeCurrentLocationMarker = function () {
+    $scope.map.removeLayer($scope.currentLocationMarker);
+    $scope.currentLocationMarker.addTo($scope.map);
+  };
+
+  $scope.currentLocationMarker.options.draggable = false;
   $scope.$on('enableCheckin', function () {
+    $scope.currentLocationMarker.options.draggable = true;
   });
-  $scope.$on('disableCheckin', function () { $scope.currentLocationMarker.options.draggable = false; });
+  $scope.$on('disableCheckin', function () {
+    $scope.placeCurrentLocationMarker();
+  });
 
   $scope.map.locate({ setView: true, maxZoom: 15 });
 
@@ -118,7 +126,7 @@ foodTruckApp.controller('MapController', ['$scope', '$compile', 'currentLocation
 
   $scope.$on('currentLocationChanged', function () {
     $scope.currentLocationMarker.setLatLng(currentLocationService.latlng);
-    $scope.currentLocationMarker.addTo($scope.map);
+    $scope.placeCurrentLocationMarker();
   });
 }]);
 
