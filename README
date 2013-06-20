@@ -3,6 +3,5 @@ TODO:
     Refactor FoodBusiness into User, then FoodBusinessController's only purpose is to serve JSON responses
     Searching in sidebar should also filter markers on map
     Add social streams to popups
-    Integrate mobile templates (from http://core2.onepostal.com/foodtruck/checkin.html)
     Add OAuth login with Twitter/FB
     Add social share functionality after check-in
