@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css"/>
   <%= csrf_meta_tags %>
 </head>
-<body ng-app="foodTruckApp" ng-init="user = <%= current_food_business.to_json %>">
-  <div id="navigation" ng-controller="FoodTrucksController">
+<body ng-app="foodTruckApp" ng-init="user = <%= current_food_business.to_json %>" ng-controller="FoodTrucksController">
+  <div id="navigation">
     <div id="navigation-inner">
       <% if food_business_signed_in? %>
         <p>
@@ -31,7 +31,7 @@
       <%= yield %>
     </div>
   </div>
-  <div id="map" ng-controller="MapController"></div>
+  <div id="map"></div>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>

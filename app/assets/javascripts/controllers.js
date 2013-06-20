@@ -15,11 +15,15 @@ var currentLocationMarker = L.AwesomeMarkers.icon({
 
 var foodTruckApp = angular.module('foodTruckApp.controllers, foodTruckApp.filters', []);
 
-foodTruckApp.controller('FoodTrucksController', ['$scope', '$resource', 'currentLocationService', 'foodTruckService', 'broadcastService', function ($scope, $resource, currentLocationService, foodTruckService, broadcastService) {
+foodTruckApp.controller('FoodTrucksController', ['$scope', '$resource', '$compile', 'foodTruckService', function ($scope, $resource, $compile, foodTruckService) {
   $scope.activeTrucks = foodTruckService.getActiveTrucks();
 
   $scope.showTruck = function (truck) {
-    broadcastService.broadcast('showTruckPopup', { truck: truck });
+    angular.forEach($scope.markers, function (marker) {
+      if (marker.truckId == truck.id) {
+        marker.openPopup();
+      }
+    });
   }
 
   $scope.distances = [
@@ -30,12 +34,6 @@ foodTruckApp.controller('FoodTrucksController', ['$scope', '$resource', 'current
     { display_text: "Beyond", min: 5, max: 100 },
   ];
 
-  $scope.enableCheckin = function () {
-    // TODO: fix this, figure out how to only call enableCheckin when all controllers are loaded, rather than from ng-init
-    setTimeout(function () {
-      broadcastService.broadcast('enableCheckin');
-    }, 200);
-  };
 
   $scope.setDistancesFromLocation = function (currentLatLng) {
     // TODO: what happens if current location loads before trucks?
@@ -45,14 +43,8 @@ foodTruckApp.controller('FoodTrucksController', ['$scope', '$resource', 'current
   };
 
   $scope.checkInAddress = "";
-  $scope.$on('currentLocationChanged', function () {
-    $scope.checkInAddress = currentLocationService.latlng.lat + ", " + currentLocationService.latlng.lng;
-    $scope.setDistancesFromLocation(currentLocationService.latlng);
-    $scope.$apply();
-  });
-}]);
 
-foodTruckApp.controller('MapController', ['$scope', '$compile', 'currentLocationService', 'foodTruckService', 'broadcastService', function ($scope, $compile, currentLocationService, foodTruckService, broadcastService) {
+  // TODO: move map methods into service
   $scope.map = L.map('map', {
     center: [40.7638333, -111.8902778],
     zoom: 15,
@@ -61,7 +53,7 @@ foodTruckApp.controller('MapController', ['$scope', '$compile', 'currentLocation
   });
   $scope.map.addLayer(new L.TileLayer("http://a.tile.openstreetmap.org/{z}/{x}/{y}.png"));
 
-  $scope.markers = []; // TODO: put markers[] into trucks[] or tie them together somehow?
+  $scope.markers = [];
   $scope.activeTrucks = foodTruckService.getActiveTrucks();
 
   $scope.$on('trucksFinishedLoading', function () {
@@ -77,56 +69,34 @@ foodTruckApp.controller('MapController', ['$scope', '$compile', 'currentLocation
     });
   });
 
-
-  $scope.$on('showTruckPopup', function () {
-    var truck = broadcastService.message.truck;
-    angular.forEach($scope.markers, function (marker) {
-      if (marker.truckId == truck.id) {
-        marker.openPopup();
-      }
-    });
-  });
-
   $scope.map.on('popupopen', function (e) {
     var popup = angular.element('.leaflet-popup-content');
     $compile(popup)($scope);
     if (!$scope.$$phase) $scope.$digest();
   });
 
-  // TODO: abstract all this into locationService
-  // ideally something like:
-  // $scope.currentLocation = locationService.currentLocation
-  // which has attribute 'marker' or maybe it's just a separate attribute from locationService
   $scope.currentLocationMarker = L.marker();
   $scope.currentLocationMarker.options.icon = currentLocationMarker;
-  $scope.placeCurrentLocationMarker = function () {
-    $scope.map.removeLayer($scope.currentLocationMarker);
-    $scope.currentLocationMarker.addTo($scope.map);
-  };
 
   $scope.currentLocationMarker.options.draggable = false;
-  $scope.$on('enableCheckin', function () {
+  $scope.enableCheckin = function () {
     $scope.currentLocationMarker.options.draggable = true;
-  });
-  $scope.$on('disableCheckin', function () {
-    $scope.placeCurrentLocationMarker();
-  });
+  };
 
   $scope.map.locate({ setView: true, maxZoom: 15 });
 
   $scope.onLocationFound = function (e) {
-    currentLocationService.broadcast(e.latlng);
+    $scope.currentLocationMarker.setLatLng(e.latlng);
+    $scope.currentLocationMarker.addTo($scope.map);
+    $scope.currentLocationChanged();
   };
   $scope.map.on('locationfound', $scope.onLocationFound);
 
-  $scope.onCurrentLocationChanged = function (e) {
-    currentLocationService.broadcast(e.target._latlng);
+  $scope.currentLocationChanged = function () {
+    $scope.checkInAddress = $scope.currentLocationMarker.getLatLng().lat + ", " + $scope.currentLocationMarker.getLatLng().lng;
+    $scope.setDistancesFromLocation($scope.currentLocationMarker.getLatLng());
+    $scope.$apply();
   };
-  $scope.currentLocationMarker.on('dragend', $scope.onCurrentLocationChanged);
-
-  $scope.$on('currentLocationChanged', function () {
-    $scope.currentLocationMarker.setLatLng(currentLocationService.latlng);
-    $scope.placeCurrentLocationMarker();
-  });
+  $scope.currentLocationMarker.on('dragend', $scope.currentLocationChanged);
 }]);
 
