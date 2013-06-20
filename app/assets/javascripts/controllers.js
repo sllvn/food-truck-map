@@ -15,7 +15,7 @@ var currentLocationMarker = L.AwesomeMarkers.icon({
 
 var foodTruckApp = angular.module('foodTruckApp.controllers, foodTruckApp.filters', []);
 
-foodTruckApp.controller('FoodTrucksController', ['$scope', '$resource', '$compile', 'foodTruckService', function ($scope, $resource, $compile, foodTruckService) {
+foodTruckApp.controller('FoodTrucksController', ['$scope', '$resource', '$compile', '$filter', 'foodTruckService', function ($scope, $resource, $compile, $filter, foodTruckService) {
   $scope.activeTrucks = foodTruckService.getActiveTrucks();
 
   $scope.showTruck = function (truck) {
@@ -25,6 +25,12 @@ foodTruckApp.controller('FoodTrucksController', ['$scope', '$resource', '$compil
       }
     });
   }
+
+  $scope.$watch('searchText', function () {
+    var filteredTrucks = $filter('filter')($scope.activeTrucks, $scope.searchText);
+    removeAllMarkersFromMap();
+    addTrucksToMap(filteredTrucks);
+  });
 
   $scope.distances = [
     { display_text: "Within 1/2 mile", min: 0, max: 0.5 },
@@ -52,12 +58,23 @@ foodTruckApp.controller('FoodTrucksController', ['$scope', '$resource', '$compil
   $scope.markers = [];
   $scope.activeTrucks = foodTruckService.getActiveTrucks();
 
+  var removeAllMarkersFromMap = function () {
+    angular.forEach($scope.markers, function (marker) {
+      $scope.map.removeLayer(marker);
+    });
+  };
+
   $scope.$on('trucksFinishedLoading', function () {
     if($scope.currentLocationMarker.getLatLng()) {
       // if current location loaded first
       $scope.setDistancesFromLocation($scope.currentLocationMarker.getLatLng());
     }
-    angular.forEach($scope.activeTrucks, function (truck, iterator) {
+
+    addTrucksToMap($scope.activeTrucks);
+  });
+
+  var addTrucksToMap = function (trucks) {
+    angular.forEach(trucks, function (truck, iterator) {
       var marker = L.marker([truck.location.latitude, truck.location.longitude]);
       marker.options.icon = truck.type == "truck" ? truckMarker : standMarker;
       marker.truckId = truck.id;
@@ -67,7 +84,7 @@ foodTruckApp.controller('FoodTrucksController', ['$scope', '$resource', '$compil
       var popup = marker.bindPopup('<food-truck-popup truck="activeTrucks[' + iterator + ']"/>', { minWidth: 300, maxWidth: 300 });
       $scope.markers.push(marker);
     });
-  });
+  }
 
   $scope.map.on('popupopen', function (e) {
     var popup = angular.element('.leaflet-popup-content');
