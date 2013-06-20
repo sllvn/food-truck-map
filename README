@@ -1,5 +1,4 @@
 TODO:
-    Specify type of business on profile screen
     Allow setting location of businesses as admin
     Refactor FoodBusiness into User, then FoodBusinessController's only purpose is to serve JSON responses
     Searching in sidebar should also filter markers on map

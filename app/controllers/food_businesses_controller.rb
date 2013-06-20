@@ -31,7 +31,7 @@ class FoodBusinessesController < ApplicationController
   end
 
   def new
-    @business = FoodBusiness.new
+    @business = FoodBusiness.new(business_type: 'stand')
   end
 
   def create

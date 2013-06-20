@@ -18,6 +18,13 @@
     </fieldset>
   <% end %>
 
+  <p style="overflow: auto;">
+    <%= f.label :business_type %>
+    <% ['stand', 'truck'].each do |business_type| %>
+      <label class="radio" style="float: left; margin-right: 20px;"><%= f.radio_button :business_type, business_type %> <%= business_type.capitalize %></label>
+    <% end %>
+  </p>
+
   <%= f.label :twitter_username %>
   <%= f.text_field :twitter_username %>
   <%= f.label :facebook_username %>
