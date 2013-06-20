@@ -99,9 +99,8 @@ foodTruckApp.controller('MapController', ['$scope', '$compile', 'currentLocation
   // which has attribute 'marker' or maybe it's just a separate attribute from locationService
   $scope.currentLocationMarker = L.marker();
   $scope.currentLocationMarker.options.icon = currentLocationMarker;
+  $scope.currentLocationMarker.options.draggable = true;
   $scope.$on('enableCheckin', function () {
-    $scope.currentLocationMarker.options.draggable = true;
-    console.log('enabling check in');
   });
   $scope.$on('disableCheckin', function () { $scope.currentLocationMarker.options.draggable = false; });
 
