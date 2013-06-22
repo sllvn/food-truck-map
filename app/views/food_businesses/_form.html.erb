@@ -30,6 +30,15 @@
     <%= f.text_area :description, { style: 'height: 5em;' } %>
   </p>
 
+  <p>
+    <label>
+      <input type="checkbox" name="autopopulate" id="autopopulate" onclick="autoPopulate()" />
+      Use current location and auto-populate
+    </label>
+    <div>{{checkInAddress}}</div>
+    <%= f.hidden_field :address, value: '{{checkInAddress}}' %>
+  </p>
+
   <%= f.label :twitter_username %>
   <%= f.text_field :twitter_username %>
   <%= f.label :facebook_username %>
@@ -38,3 +47,14 @@
   <%= f.text_field :website_url %>
   <%= f.submit 'Save Business Profile' %>
 <% end %>
+
+<script type="text/javascript">
+  var autoPopulate = function() {
+    var businessName = $('#food_business_name').val();
+    var username = businessName.replace(/[^\w]+/g, '').toLowerCase();
+    $('#food_business_username').val(username);
+    $('#food_business_email').val(username + '@example.com');
+    $('#food_business_password').val(username);
+    $('#food_business_password_confirmation').val(username);
+  };
+</script>

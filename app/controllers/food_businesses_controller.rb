@@ -38,6 +38,16 @@ class FoodBusinessesController < ApplicationController
     @business = FoodBusiness.new
     @business.update_attributes(params[:food_business])
 
+    if params[:autopopulate]
+      @location = Location.new
+      @location.latitude, @location.longitude = params[:food_business][:address].split(',').map(&:strip)
+      # TODO: create TimeRange object to handle duration, etc.
+      @location.start_time = Time.now
+      @location.end_time = 10.years.from_now
+      @business.location = @location
+    end
+    binding.pry
+
     if @business.save
       redirect_to edit_food_business_path(@business), notice: 'New food business added.'
     else

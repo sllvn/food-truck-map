@@ -2,6 +2,8 @@ class FoodBusiness < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, authentication_keys: [:login]
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :twitter_username, :facebook_username, :website_url, :location, :is_admin, :business_type, :username, :description
+  attr_accessor :address
+  attr_accessible :address # TODO: fix this
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
