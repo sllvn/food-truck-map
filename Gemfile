@@ -4,7 +4,6 @@ ruby '2.0.0'
 gem 'rails', '3.2.13'
 gem 'pg'
 gem 'devise'
-gem 'pry-rails'
 gem 'rabl'
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
@@ -12,6 +11,9 @@ gem 'twitter-bootstrap-rails'
 group :development do
   gem 'sqlite3'
   gem 'figaro'
+  gem 'pry-rails'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
 end
 
 group :assets do
