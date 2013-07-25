@@ -11,7 +11,7 @@
     <% @food_businesses.each do |fb| %>
       <tr>
         <td><%= link_to fb.name, edit_food_business_path(fb) %></td>
-        <td><%= fb.last_sign_in_at %></td>
+        <td><%= nilsafe_time_ago_in_words(fb.last_sign_in_at) %></td>
       </tr>
     <% end %>
   </tbody>
