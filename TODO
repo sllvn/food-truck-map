@@ -1,0 +1,10 @@
+Convert to Coffeescript
+Move auth stuff to /admin section of site
+Allow setting location of businesses as admin
+Refactor FoodBusiness into User, then FoodBusinessController's only purpose is to serve JSON responses
+Keep functionality without current location set
+Better map behavior on mobile
+Add marker cluster plugin: https://github.com/Leaflet/Leaflet.markercluster
+Add social streams to popups
+Add OAuth login with Twitter/FB
+Add social share functionality after check-in

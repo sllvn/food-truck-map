@@ -1,9 +1,4 @@
-TODO:
-    Allow setting location of businesses as admin
-    Refactor FoodBusiness into User, then FoodBusinessController's only purpose is to serve JSON responses
-    Keep functionality without current location set
-    Better map behavior on mobile
-    Add marker cluster plugin: https://github.com/Leaflet/Leaflet.markercluster
-    Add social streams to popups
-    Add OAuth login with Twitter/FB
-    Add social share functionality after check-in
+This is a Rails food truck tracking application, born from OpenSaltLake and Code for America's Civic Engagement Day hackathon (June 1, 2013).
+
+The purpose of this app, while trivial, is to provide an easy-to-understand, highly visible way for local brigades to market themselves to the general public by providing an easy-to-understand service with CfA brigade branding all over.
+
