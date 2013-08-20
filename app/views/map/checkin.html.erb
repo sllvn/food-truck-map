@@ -1,10 +1,10 @@
-<h3 ng-init="enableCheckin()">Check In</h3>
+<h3 ng-init="enable_checkin()">Check In</h3>
 <%= form_for :check_in, url: '/checkin' do |f| %>
   <p>Drag the pin on the map to your current location.</p>
   <p>
     <%= f.label 'address' %>
-  <div>{{checkInAddress}}</div>
-  <%= f.hidden_field :address, value: '{{checkInAddress}}' %>
+  <div>{{check_in_address}}</div>
+  <%= f.hidden_field :address, value: '{{check_in_address}}' %>
   </p>
   <%= f.label 'Duration' %>
   <%= f.select :duration, options_for_select(@time_durations), include_blank: true %>

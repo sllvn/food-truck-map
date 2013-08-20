@@ -8,3 +8,4 @@ Add marker cluster plugin: https://github.com/Leaflet/Leaflet.markercluster
 Add social streams to popups
 Add OAuth login with Twitter/FB
 Add social share functionality after check-in
+Make the popups prettier
