@@ -9,27 +9,11 @@
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css"/>
   <%= csrf_meta_tags %>
 </head>
-<body ng-app="food_truck_app" ng-init="user = <%= current_food_business.to_json %>" ng-controller="FoodTrucksController">
+<body ng-app="food_truck_app" ng-controller="food_trucks_controller as food_trucks">
   <div class="container-fluid fill-height remove-padding">
     <div class="row-fluid fill-height">
       <div class="span3 navigation">
-        <% if food_business_signed_in? %>
-          <p>
-            Hello, <%= link_to '{{user.name}}', edit_food_business_path(current_food_business) %>.
-            <%= link_to 'Log out?', destroy_food_business_session_path, :method => :delete %>
-          </p>
-        <% else %>
-          <p><a href="<%= new_food_business_session_path %>">Log in</a></p>
-        <% end %>
-
-        <% [:notice, :alert, :error].each do |type| %>
-          <% if flash[type] %>
-            <p class="<%= type.to_s %>"><%= flash[type] %></p>
-          <% end %>
-        <% end %>
-
         <h1><%= link_to 'Food Truck Map', root_path %></h1>
-
         <%= yield %>
       </div>
       <div class="span9 fill-height" id="map"></div>

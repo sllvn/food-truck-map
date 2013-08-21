@@ -4,11 +4,7 @@ food_truck_app.factory 'food_truck_service', ['$resource', '$rootScope', ($resou
     angular.forEach all_trucks, (truck) ->
       active_trucks.push truck if truck.status is 'open'
 
-    $rootScope.$broadcast 'trucks_finished_loading'
+  get_all_trucks: -> all_trucks
 
-  get_all_trucks: ->
-    all_trucks
-
-  get_active_trucks: ->
-    active_trucks
+  get_active_trucks: -> active_trucks
 ]
