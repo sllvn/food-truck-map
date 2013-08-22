@@ -1,4 +1,5 @@
-Convert to Coffeescript
+Convert to HAML
+Move Angular templates into asset pipeline
 Move auth stuff to /admin section of site
 Allow setting location of businesses as admin
 Refactor FoodBusiness into User, then FoodBusinessController's only purpose is to serve JSON responses
