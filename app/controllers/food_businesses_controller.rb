@@ -2,7 +2,7 @@ class FoodBusinessesController < ApplicationController
   before_filter :require_permissions, except: [:index, :show]
 
   def index
-    @food_businesses = FoodBusiness.food_trucks
+    @food_businesses = FoodBusiness.all
     respond_to do |format|
       format.html do
         redirect_to root_path unless current_food_business and current_food_business.is_admin

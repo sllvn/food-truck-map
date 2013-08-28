@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130620204315) do
+ActiveRecord::Schema.define(:version => 20130828220041) do
 
   create_table "food_businesses", :force => true do |t|
     t.string    "email",                  :default => "", :null => false
@@ -49,5 +49,18 @@ ActiveRecord::Schema.define(:version => 20130620204315) do
     t.timestamp "created_at",       :null => false
     t.timestamp "updated_at",       :null => false
   end
+
+  create_table "schedule_entries", :force => true do |t|
+    t.integer  "food_business_id"
+    t.integer  "location_id"
+    t.string   "day"
+    t.time     "starttime"
+    t.time     "endtime"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "schedule_entries", ["food_business_id"], :name => "index_schedule_entries_on_food_business_id"
+  add_index "schedule_entries", ["location_id"], :name => "index_schedule_entries_on_location_id"
 
 end
