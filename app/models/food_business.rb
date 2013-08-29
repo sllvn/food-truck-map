@@ -21,12 +21,22 @@ class FoodBusiness < ActiveRecord::Base
   end
 
   def location
-    if schedule[Time.now.strftime("%A").downcase]
-      location = schedule[Time.now.strftime("%A").downcase].location
+    today = schedule[Time.now.strftime("%A").downcase]
+    if today
+      # TODO: write tests for this, this is very fragile
+      # hack around rails time zone weirdness for standard vs daylight time
+      start_time = today.starttime.localtime
+      end_time = today.endtime.localtime
+      offset = Time.now.formatted_offset.to_i - today.starttime.formatted_offset.to_i 
+      start_time += offset.hours
+      end_time += offset.hours
+
+      location = today.location
       {
         address: location.address,
         latitude: location.latitude,
-        longitude: location.longitude
+        longitude: location.longitude,
+        hours: "#{start_time.strftime('%I:%M %P')} - #{end_time.strftime('%I:%M %P')}"
       }
     else
       nil
