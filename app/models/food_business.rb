@@ -20,7 +20,18 @@ class FoodBusiness < ActiveRecord::Base
     days
   end
 
-  def current_location; end # TODO
+  def location
+    if schedule[Time.now.strftime("%A").downcase]
+      location = schedule[Time.now.strftime("%A").downcase].location
+      {
+        address: location.address,
+        latitude: location.latitude,
+        longitude: location.longitude
+      }
+    else
+      nil
+    end
+  end
 
   def all_locations; end # TODO
 
@@ -28,6 +39,7 @@ class FoodBusiness < ActiveRecord::Base
 
   def self.active_trucks
     # TODO: find schedules where day = today and current time is between starttime and endtime
+    ScheduleEntry.where(day: 'wednesday').where('starttime <= ? and endtime >= ?', Time.now, Time.now).map { |s| s.food_business }
   end
 end
 
