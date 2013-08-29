@@ -16,6 +16,7 @@ food_truck_app.controller 'food_trucks_controller', [
       @active_trucks = food_truck_service.get_all_trucks()
       @active_trucks.$then =>
         this.add_trucks_to_map @active_trucks
+        this.set_distances_from_location @current_location_marker.getLatLng()
 
       @current_location_marker = L.marker()
       @current_location_marker.options.icon = current_location_marker
@@ -63,7 +64,7 @@ food_truck_app.controller 'food_trucks_controller', [
       angular.forEach @active_trucks, (truck) ->
         if truck.location and truck.location.latitude and truck.location.longitude
           truck.distance = current_lat_lng.distanceTo(new L.LatLng(truck.location.latitude, truck.location.longitude))
-      @$scope.$apply()
+      @$scope.$digest() unless @$scope.$$phase
 
     # map method
     remove_all_markers_from_map: =>
