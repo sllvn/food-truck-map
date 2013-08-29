@@ -6,16 +6,7 @@ class MapController < ApplicationController
       ["Next #{pluralize(x, 'hour')}", "hours_#{x}"]
     end
 
-    if food_business_signed_in?
-      if current_food_business.is_admin
-        @food_businesses = FoodBusiness.all
-        render template: 'food_businesses/index'
-      else
-        render template: 'map/checkin'
-      end
-    else
-      render template: 'map/index'
-    end
+    render template: 'map/index'
   end
 
   def checkin

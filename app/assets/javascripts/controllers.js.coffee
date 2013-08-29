@@ -33,7 +33,7 @@ food_truck_app.controller 'food_trucks_controller', [
 
       # TODO: move map methods into service
       @markers = []
-      @map = L.map('map', center: [40.7638333, -111.8902778], zoom: 15, minZoom: 13, maxZoom: 16)
+      @map = L.map('map', center: [40.7638333, -111.8902778], zoom: 15, minZoom: 10, maxZoom: 16)
       @map.addLayer new L.TileLayer('http://a.tile.openstreetmap.org/{z}/{x}/{y}.png')
 
       @map.on 'popupopen', (e) =>
@@ -61,7 +61,7 @@ food_truck_app.controller 'food_trucks_controller', [
     # map method
     set_distances_from_location: (current_lat_lng) ->
       angular.forEach @active_trucks, (truck) ->
-        if truck.location
+        if truck.location and truck.location.latitude and truck.location.longitude
           truck.distance = current_lat_lng.distanceTo(new L.LatLng(truck.location.latitude, truck.location.longitude))
       @$scope.$apply()
 
@@ -73,7 +73,7 @@ food_truck_app.controller 'food_trucks_controller', [
     # map method
     add_trucks_to_map: (trucks) ->
       angular.forEach trucks, (truck, iterator) =>
-        return unless truck.location
+        return unless truck.location and truck.location.latitude and truck.location.longitude
 
         marker = L.marker([truck.location.latitude, truck.location.longitude])
         marker.options.icon = if truck.type is 'truck' then truck_marker else stand_marker
