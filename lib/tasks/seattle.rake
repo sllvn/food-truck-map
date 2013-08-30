@@ -22,7 +22,7 @@ namespace :seattle do
 
           schedule_entry = ScheduleEntry.where(food_business_id: food_business.id, day: day).first ||
                            ScheduleEntry.create(food_business_id: food_business.id, day: day)
-          schedule_entry.starttime, schedule_entry.endtime = TimeRangeParser.parse(location['time']) if location['time']
+          schedule_entry.start_time, schedule_entry.end_time = TimeRangeParser.parse(location['time']) if location['time']
           schedule_entry.location = truck_location
           schedule_entry.save
         end

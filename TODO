@@ -1,4 +1,3 @@
-Move devise users away from food_business and into user
 Move auth stuff to /admin section of site
 Allow setting locations as admin
 Keep functionality without knowing current location 

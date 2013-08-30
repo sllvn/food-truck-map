@@ -3,7 +3,6 @@ ruby '2.0.0'
 
 gem 'rails', '3.2.13'
 gem 'pg'
-gem 'devise'
 gem 'rabl'
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'

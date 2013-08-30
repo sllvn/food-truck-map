@@ -4,8 +4,8 @@ class CreateScheduleEntries < ActiveRecord::Migration
       t.references :food_business
       t.references :location
       t.string :day
-      t.time :starttime
-      t.time :endtime
+      t.time :start_time
+      t.time :end_time
 
       t.timestamps
     end

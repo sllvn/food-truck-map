@@ -26,9 +26,9 @@ class FoodBusiness < ActiveRecord::Base
     if today
       # TODO: write tests for this, this is very fragile
       # hack around rails time zone weirdness for standard vs daylight time
-      start_time = today.starttime.localtime
-      end_time = today.endtime.localtime
-      offset = Time.now.formatted_offset.to_i - today.starttime.formatted_offset.to_i 
+      start_time = today.start_time.localtime
+      end_time = today.end_time.localtime
+      offset = Time.now.formatted_offset.to_i - today.start_time.formatted_offset.to_i 
       start_time += offset.hours
       end_time += offset.hours
 
@@ -45,7 +45,7 @@ class FoodBusiness < ActiveRecord::Base
   end
 
   def self.active_trucks
-    ScheduleEntry.where(day: Time.now.strftime("%A").downcase).where('starttime <= ? and endtime >= ?', Time.now, Time.now).map { |s| s.food_business }
+    ScheduleEntry.where(day: Time.now.strftime("%A").downcase).where('start_time <= ? and end_time >= ?', Time.now, Time.now).map { |s| s.food_business }
   end
 end
 

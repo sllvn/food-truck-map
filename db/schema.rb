@@ -14,48 +14,31 @@
 ActiveRecord::Schema.define(:version => 20130828220041) do
 
   create_table "food_businesses", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
     t.string   "name"
     t.string   "description"
     t.integer  "location_id"
     t.string   "twitter_username"
     t.string   "facebook_username"
     t.string   "website_url"
-    t.boolean  "is_admin"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.string   "business_type"
-    t.string   "username"
   end
-
-  add_index "food_businesses", ["reset_password_token"], :name => "index_food_businesses_on_reset_password_token", :unique => true
 
   create_table "locations", :force => true do |t|
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.integer  "food_business_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "schedule_entries", :force => true do |t|
     t.integer  "food_business_id"
     t.integer  "location_id"
     t.string   "day"
-    t.time     "starttime"
-    t.time     "endtime"
+    t.time     "start_time"
+    t.time     "end_time"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
