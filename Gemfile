@@ -9,7 +9,6 @@ gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
 
 group :development do
-  gem 'sqlite3'
   gem 'figaro'
   gem 'pry-rails'
   gem 'pry-rescue'
