@@ -2,13 +2,14 @@ class FoodBusiness < ActiveRecord::Base
   has_many :schedule_entries
 
   def type
+    # TODO: update this for seattle
     self.business_type.blank? ? 'stand' : self.business_type
   end
 
   def status
-    nil
+    # TODO: fix this
+    'open'
   end
-
 
   def schedule
     # TODO: allow for more than one schedule item per day
@@ -43,12 +44,7 @@ class FoodBusiness < ActiveRecord::Base
     end
   end
 
-  def all_locations; end # TODO
-
-  def next_location; end # TODO: useful if they're currently inactive
-
   def self.active_trucks
-    # TODO: find schedules where day = today and current time is between starttime and endtime
     ScheduleEntry.where(day: Time.now.strftime("%A").downcase).where('starttime <= ? and endtime >= ?', Time.now, Time.now).map { |s| s.food_business }
   end
 end
