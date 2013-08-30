@@ -1,4 +1,4 @@
-class FoodBusiness < ActiveRecord::Base
+class FoodTruck < ActiveRecord::Base
   has_many :schedule_entries
 
   def type
@@ -45,7 +45,7 @@ class FoodBusiness < ActiveRecord::Base
   end
 
   def self.active_trucks
-    ScheduleEntry.where(day: Time.now.strftime("%A").downcase).where('start_time <= ? and end_time >= ?', Time.now, Time.now).map { |s| s.food_business }
+    ScheduleEntry.where(day: Time.now.strftime("%A").downcase).where('start_time <= ? and end_time >= ?', Time.now, Time.now).map { |s| s.food_truck }
   end
 end
 

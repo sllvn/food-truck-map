@@ -1,14 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  food_business: 
+  food_truck: 
   location: 
   day: MyString
   starttime: 2013-08-28 15:00:41
   endtime: 2013-08-28 15:00:41
 
 two:
-  food_business: 
+  food_truck: 
   location: 
   day: MyString
   starttime: 2013-08-28 15:00:41
