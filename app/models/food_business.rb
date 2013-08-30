@@ -49,7 +49,7 @@ class FoodBusiness < ActiveRecord::Base
 
   def self.active_trucks
     # TODO: find schedules where day = today and current time is between starttime and endtime
-    ScheduleEntry.where(day: 'wednesday').where('starttime <= ? and endtime >= ?', Time.now, Time.now).map { |s| s.food_business }
+    ScheduleEntry.where(day: Time.now.strftime("%A").downcase).where('starttime <= ? and endtime >= ?', Time.now, Time.now).map { |s| s.food_business }
   end
 end
 
