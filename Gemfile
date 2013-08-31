@@ -6,6 +6,7 @@ gem 'pg'
 gem 'rabl'
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
+gem 'activeadmin'
 
 group :development do
   gem 'figaro'
