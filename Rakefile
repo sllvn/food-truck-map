@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Foodtruckmap::Application.load_tasks
+FoodTruckMap::Application.load_tasks
