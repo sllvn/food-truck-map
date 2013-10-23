@@ -1,5 +1,6 @@
 class FoodTruck < ActiveRecord::Base
   has_many :schedule_entries
+  has_many :locations, through: :schedule_entries
 
   def type
     # TODO: update this for seattle
@@ -21,9 +22,9 @@ class FoodTruck < ActiveRecord::Base
     days
   end
 
-  def location
+  def current_location
     today = schedule[Time.now.strftime("%A").downcase]
-    if today
+    if today and today.start_time and today.end_time
       # TODO: write tests for this, this is very fragile
       # hack around rails time zone weirdness for standard vs daylight time
       start_time = today.start_time.localtime
@@ -32,13 +33,13 @@ class FoodTruck < ActiveRecord::Base
       start_time += offset.hours
       end_time += offset.hours
 
-      location = today.location
-      {
-        address: location.address,
-        latitude: location.latitude,
-        longitude: location.longitude,
-        hours: "#{start_time.strftime('%I:%M %P')} - #{end_time.strftime('%I:%M %P')}"
-      }
+      today.location
+      #{
+      #  address: location.address,
+      #  latitude: location.latitude,
+      #  longitude: location.longitude,
+      #  hours: "#{start_time.strftime('%I:%M %P')} - #{end_time.strftime('%I:%M %P')}"
+      #}
     else
       nil
     end

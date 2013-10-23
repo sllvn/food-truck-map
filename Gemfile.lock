@@ -14,6 +14,8 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    active_model_serializers (0.8.1)
+      activemodel (>= 3.0)
     activemodel (3.2.14)
       activesupport (= 3.2.14)
       builder (~> 3.0.0)
@@ -75,8 +77,8 @@ GEM
     pry-stack_explorer (0.4.9)
       binding_of_caller (>= 0.7)
       pry (~> 0.9.11)
-    rabl (0.8.5)
-      activesupport (>= 2.3.14)
+    puma (2.6.0)
+      rack (>= 1.1, < 2.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -132,6 +134,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers
   coffee-rails (~> 3.2.1)
   figaro
   jquery-rails
@@ -139,7 +142,7 @@ DEPENDENCIES
   pry-rails
   pry-rescue
   pry-stack_explorer
-  rabl
+  puma
   rails (= 3.2.14)
   sass-rails (~> 3.2.3)
   twitter-bootstrap-rails

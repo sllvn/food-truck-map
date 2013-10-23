@@ -1,4 +1,9 @@
 class Location < ActiveRecord::Base
   attr_accessible :address, :latitude, :longitude
-  belongs_to :food_truck
+  has_many :food_trucks, through: :schedule_entry
+  has_many :schedule_entries
+
+  def schedule_entry
+    self.schedule_entries.first
+  end
 end

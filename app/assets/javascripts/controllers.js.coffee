@@ -62,8 +62,8 @@ food_truck_app.controller 'food_trucks_controller', [
     # map method
     set_distances_from_location: (current_lat_lng) ->
       angular.forEach @active_trucks, (truck) ->
-        if truck.location and truck.location.latitude and truck.location.longitude
-          truck.distance = current_lat_lng.distanceTo(new L.LatLng(truck.location.latitude, truck.location.longitude))
+        if truck.current_location and truck.current_location.latitude and truck.current_location.longitude
+          truck.distance = current_lat_lng.distanceTo(new L.LatLng(truck.current_location.latitude, truck.current_location.longitude))
       @$scope.$digest() unless @$scope.$$phase
 
     # map method
@@ -74,9 +74,9 @@ food_truck_app.controller 'food_trucks_controller', [
     # map method
     add_trucks_to_map: (trucks) ->
       angular.forEach trucks, (truck, iterator) =>
-        return unless truck.location and truck.location.latitude and truck.location.longitude
+        return unless truck.current_location and truck.current_location.latitude and truck.current_location.longitude
 
-        marker = L.marker([truck.location.latitude, truck.location.longitude])
+        marker = L.marker([truck.current_location.latitude, truck.current_location.longitude])
         marker.options.icon = if truck.type is 'truck' then truck_marker else stand_marker
         marker.truckId = truck.id
         marker.addTo @map

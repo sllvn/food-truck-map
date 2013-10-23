@@ -2,10 +2,12 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 
 gem 'rails', '3.2.14'
+gem 'puma'
+
 gem 'pg'
-gem 'rabl'
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
+gem 'active_model_serializers'
 
 group :development do
   gem 'figaro'
