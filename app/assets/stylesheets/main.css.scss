@@ -2,6 +2,11 @@ body, html, .fill-height {
   height: 100%;
 }
 
+.navigation {
+  height: 100%;
+  overflow: auto;
+}
+
 .disabled {
   color: #999;
 }
