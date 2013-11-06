@@ -6,8 +6,11 @@ gem 'puma'
 
 gem 'pg'
 gem 'jquery-rails'
-gem 'twitter-bootstrap-rails'
+gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails', :github => 'anjlab/bootstrap-rails'
 gem 'active_model_serializers'
+gem 'devise'
+gem 'haml'
+gem 'select2-rails'
 
 group :development do
   gem 'figaro'
