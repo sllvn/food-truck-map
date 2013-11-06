@@ -34,7 +34,7 @@ food_truck_app.controller 'food_trucks_controller', [
 
       # TODO: move map methods into service
       @markers = []
-      @map = L.map('map', center: [40.7638333, -111.8902778], zoom: 14, minZoom: 9, maxZoom: 16)
+      @map = L.map('map', center: [47.6097, -122.3331], zoom: 14, minZoom: 9, maxZoom: 16)
       @map.addLayer new L.TileLayer('http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg')
 
       @map.on 'popupopen', (e) =>
