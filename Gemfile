@@ -12,6 +12,7 @@ gem 'devise'
 gem 'haml'
 gem 'select2-rails'
 gem 'simple_form'
+gem 'leaflet-rails'
 
 group :development do
   gem 'figaro'
