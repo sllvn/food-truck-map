@@ -1,6 +1,6 @@
-truck_marker = L.AwesomeMarkers.icon(icon: 'truck', color: 'green')
-stand_marker = L.AwesomeMarkers.icon( icon: 'food', color: 'purple')
-current_location_marker = L.AwesomeMarkers.icon(icon: 'star', color: 'blue')
+truck_marker = L.AwesomeMarkers.icon(icon: 'truck', markerColor: 'green')
+stand_marker = L.AwesomeMarkers.icon( icon: 'cutlery', markerColor: 'purple')
+current_location_marker = L.AwesomeMarkers.icon(icon: 'star', markerColor: 'blue')
 
 food_truck_app = angular.module('food_truck_app.controllers, food_truck_app.filters', [])
 

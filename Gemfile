@@ -14,6 +14,7 @@ gem 'select2-rails'
 gem 'simple_form'
 gem 'leaflet-rails'
 gem 'angularjs-rails'
+gem 'font-awesome-rails'
 
 group :development do
   gem 'figaro'
