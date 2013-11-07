@@ -5,3 +5,32 @@
  */
 
 @import "twitter/bootstrap";
+
+.container {
+  width: 100%;
+}
+body, html, .fill-height {
+  height: 100%;
+}
+
+.navigation {
+  height: 100%;
+  overflow: auto;
+}
+
+.disabled {
+  color: #999;
+}
+
+.navigation {
+  padding: 1em;
+}
+
+.remove-padding {
+  padding: 0;
+}
+
+.beta {
+  color: #f66;
+  font-weight: bold;
+}
