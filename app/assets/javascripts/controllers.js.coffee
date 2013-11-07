@@ -61,6 +61,7 @@ food_truck_app.controller 'food_trucks_controller', [
 
     # map method
     set_distances_from_location: (current_lat_lng) ->
+      return unless current_lat_lng
       angular.forEach @active_trucks, (truck) ->
         if truck.current_location and truck.current_location.latitude and truck.current_location.longitude
           truck.distance = current_lat_lng.distanceTo(new L.LatLng(truck.current_location.latitude, truck.current_location.longitude))
