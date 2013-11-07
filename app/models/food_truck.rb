@@ -2,6 +2,10 @@ class FoodTruck < ActiveRecord::Base
   has_many :schedule_entries
   has_many :locations, through: :schedule_entries
 
+  attr_accessible :name, :description, :twitter_username, :facebook_username, :website_url, :schedule_entries_attributes
+
+  accepts_nested_attributes_for :schedule_entries
+
   def type
     # TODO: update this for seattle
     self.business_type.blank? ? 'stand' : self.business_type

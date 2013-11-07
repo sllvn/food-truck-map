@@ -11,6 +11,7 @@ gem 'active_model_serializers'
 gem 'devise'
 gem 'haml'
 gem 'select2-rails'
+gem 'simple_form'
 
 group :development do
   gem 'figaro'

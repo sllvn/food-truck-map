@@ -1,0 +1,66 @@
+= simple_form_for [:admin, @food_truck], html: { class: 'form-horizontal' } do |f|
+  - if @food_truck.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@food_truck.errors.count, "error")
+        prohibited this food_truck from being saved:
+      %ul
+        - @food_truck.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :name, class: 'col-sm-2 control-label'
+    .col-sm-8
+      = f.input_field :name, class: 'form-control'
+
+  .form-group
+    = f.label :description, class: 'col-sm-2 control-label'
+    .col-sm-8
+      = f.input_field :description, class: 'form-control', rows: 5
+
+  .form-group
+    = f.label :twitter_username, 'Twitter URL', class: 'col-sm-2 control-label'
+    .col-sm-8
+      = f.input_field :twitter_username, class: 'form-control'
+
+  .form-group
+    = f.label :facebook_username, 'Facebook URL', class: 'col-sm-2 control-label'
+    .col-sm-8
+      = f.input_field :facebook_username, class: 'form-control'
+
+  .form-group
+    = f.label :website_url, 'Website URL', class: 'col-sm-2 control-label'
+    .col-sm-8
+      = f.input_field :website_url, class: 'form-control'
+
+  .row
+    .col-sm-offset-2.col-sm-8
+      %h4 Schedule
+      %table.table.table-striped.table-bordered
+        %thead
+          %tr
+            %th
+            %th Start Time
+            %th End Time
+            %th Display Address
+            %th Lat/Lng
+        %tbody
+          = f.simple_fields_for :schedule_entries do |s|
+            %tr
+              %td= s.label s.object.day.capitalize
+              %td= s.input_field :start_time
+              %td= s.input_field :end_time
+              = s.simple_fields_for :location do |l|
+                %td= l.input_field :address, style: 'width: 200px'
+                %td
+                  = l.label :latitude, 'Lat'
+                  = l.input_field :latitude, style: 'width: 80px'
+                  %br
+                  = l.label :longitude, 'Lng'
+                  = l.input_field :longitude, style: 'width: 80px'
+
+  .form-group.actions
+    .col-sm-offset-2.col-sm-8
+      = f.button :submit, 'Submit'
+      %p.delete-link
+        = link_to 'Delete Food Truck', admin_food_truck_path, method: :delete, data: { confirm: 'Are you sure you want to delete this food truck?' }
