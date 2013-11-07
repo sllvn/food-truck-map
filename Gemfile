@@ -13,6 +13,7 @@ gem 'haml'
 gem 'select2-rails'
 gem 'simple_form'
 gem 'leaflet-rails'
+gem 'angularjs-rails'
 
 group :development do
   gem 'figaro'
