@@ -6,6 +6,8 @@ class FoodTruck < ActiveRecord::Base
 
   accepts_nested_attributes_for :schedule_entries
 
+  default_scope order(:name)
+
   def type
     # TODO: update this for seattle
     self.business_type.blank? ? 'stand' : self.business_type
