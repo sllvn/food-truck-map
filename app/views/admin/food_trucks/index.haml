@@ -1,5 +1,8 @@
 %h1 Food Trucks
 
+%p
+  = link_to 'New Food Truck', new_admin_food_truck_path
+
 %table.table.table-striped.table-bordered
   %thead
     %tr
@@ -14,4 +17,4 @@
           = food_truck.updated_at.strftime('%b %d %Y, %H:%M')
 
 %p
-  = link_to 'New Food truck', new_admin_food_truck_path
+  = link_to 'New Food Truck', new_admin_food_truck_path

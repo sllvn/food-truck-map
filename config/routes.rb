@@ -3,9 +3,7 @@ FoodTruckMap::Application.routes.draw do
 
   namespace :admin do
     resources :users
-    resources :food_trucks do
-      resources :schedules
-    end
+    resources :food_trucks
 
     get '/' => 'dashboard#index'
   end

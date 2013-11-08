@@ -10,24 +10,13 @@ class Admin::FoodTrucksController < AdminController
     end
   end
 
-  # GET /food_trucks/1
-  # GET /food_trucks/1.json
-  def show
-    @food_truck = FoodTruck.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @food_truck }
-    end
-  end
-
   # GET /food_trucks/new
   # GET /food_trucks/new.json
   def new
     @food_truck = FoodTruck.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @food_truck }
     end
   end
@@ -41,10 +30,11 @@ class Admin::FoodTrucksController < AdminController
   # POST /food_trucks.json
   def create
     @food_truck = FoodTruck.new(params[:food_truck])
+    @food_truck.id = FoodTruck.maximum(:id).next
 
     respond_to do |format|
       if @food_truck.save
-        format.html { redirect_to @food_truck, notice: 'Food truck was successfully created.' }
+        format.html { redirect_to admin_food_trucks_path, notice: 'Food truck was successfully created.' }
         format.json { render json: @food_truck, status: :created, location: @food_truck }
       else
         format.html { render action: "new" }
@@ -76,7 +66,7 @@ class Admin::FoodTrucksController < AdminController
     @food_truck.destroy
 
     respond_to do |format|
-      format.html { redirect_to food_trucks_url }
+      format.html { redirect_to admin_food_trucks_url, notice: "Food truck was successfully deleted." }
       format.json { head :no_content }
     end
   end

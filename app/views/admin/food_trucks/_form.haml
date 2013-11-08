@@ -53,5 +53,6 @@
   .form-group.actions
     .col-sm-offset-2.col-sm-10
       = f.button :submit, 'Submit'
-      %p.delete-link
-        = link_to 'Delete Food Truck', admin_food_truck_path, method: :delete, data: { confirm: 'Are you sure you want to delete this food truck?' }
+      - if params[:action] == 'edit'
+        %p.delete-link
+          = link_to 'Delete Food Truck', admin_food_truck_path, method: :delete, data: { confirm: 'Are you sure you want to delete this food truck?' }
