@@ -39,13 +39,7 @@ class FoodTruck < ActiveRecord::Base
       start_time += offset.hours
       end_time += offset.hours
 
-      today.location
-      #{
-      #  address: location.address,
-      #  latitude: location.latitude,
-      #  longitude: location.longitude,
-      #  hours: "#{start_time.strftime('%I:%M %P')} - #{end_time.strftime('%I:%M %P')}"
-      #}
+      today
     else
       nil
     end

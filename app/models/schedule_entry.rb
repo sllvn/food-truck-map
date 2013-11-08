@@ -1,10 +1,7 @@
 class ScheduleEntry < ActiveRecord::Base
   belongs_to :food_truck
-  belongs_to :location
 
-  attr_accessible :day, :food_truck_id, :location_id, :end_time, :start_time, :location_attributes
-
-  accepts_nested_attributes_for :location
+  attr_accessible :day, :food_truck_id, :end_time, :start_time, :address, :latitude, :longitude
 
   def self.order_by_case
     ret = "CASE"
