@@ -1,0 +1,12 @@
+%tr.nested-fields
+  %td= f.input_field :day, collection: %w[sunday monday tuesday wednesday thursday friday saturday]
+  %td= f.input_field :start_time
+  %td= f.input_field :end_time
+  %td= f.input_field :address, style: 'width: 200px'
+  %td
+    = f.label :latitude, 'Lat'
+    = f.input_field :latitude, style: 'width: 80px'
+    %br
+    = f.label :longitude, 'Lng'
+    = f.input_field :longitude, style: 'width: 80px'
+  %td= link_to_remove_association 'delete', f

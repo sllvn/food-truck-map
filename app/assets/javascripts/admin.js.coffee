@@ -3,6 +3,7 @@
 #= require leaflet
 #= require twitter/bootstrap
 #= require select2
+#= require cocoon
 #= require_self
 
 class Map

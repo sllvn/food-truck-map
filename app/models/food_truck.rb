@@ -4,7 +4,7 @@ class FoodTruck < ActiveRecord::Base
 
   attr_accessible :name, :description, :twitter_username, :facebook_username, :website_url, :schedule_entries_attributes
 
-  accepts_nested_attributes_for :schedule_entries
+  accepts_nested_attributes_for :schedule_entries, reject_if: :all_blank, allow_destroy: true
 
   default_scope order(:name)
 
