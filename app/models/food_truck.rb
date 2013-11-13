@@ -28,21 +28,8 @@ class FoodTruck < ActiveRecord::Base
     days
   end
 
-  def current_location
-    today = schedule[Time.now.strftime("%A").downcase]
-    if today and today.start_time and today.end_time
-      # TODO: write tests for this, this is very fragile
-      # hack around rails time zone weirdness for standard vs daylight time
-      start_time = today.start_time.localtime
-      end_time = today.end_time.localtime
-      offset = Time.now.formatted_offset.to_i - today.start_time.formatted_offset.to_i 
-      start_time += offset.hours
-      end_time += offset.hours
-
-      today
-    else
-      nil
-    end
+  def schedule_for_day(day)
+    self.schedule_entries.where('day = ?', day).first
   end
 
   def self.active_trucks
