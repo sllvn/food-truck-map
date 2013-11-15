@@ -1,0 +1,58 @@
+= simple_form_for [:admin, @user], html: { class: 'form-horizontal' } do |f|
+  - if @user.errors.any?
+    #error_explanation
+      %h3
+        = pluralize(@user.errors.count, "error")
+        prohibited this user from being saved:
+      %ul.validation_errors
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
+
+  - if params[:action] == 'edit'
+    .form-group
+      .col-sm-10.col-sm-offset-2
+        = image_tag avatar_url(@user, 150)
+
+  .form-group
+    = f.label :email, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.input_field :email, class: 'form-control'
+
+  - if params[:action] == 'edit'
+    .form-group
+      = f.label :last_sign_in_at, class: 'col-sm-2 control-label'
+      .col-sm-10
+        %div(style="padding: 6px 0")= f.object.last_sign_in_at
+
+    .form-group
+      = f.label :last_sign_in_ip, class: 'col-sm-2 control-label'
+      .col-sm-10
+        %div(style="padding: 6px 0")= f.object.last_sign_in_ip
+
+    .form-group
+      = f.label :created_at, class: 'col-sm-2 control-label'
+      .col-sm-10
+        %div(style="padding: 6px 0")= f.object.created_at
+
+  .form-group
+    - if params[:action] == 'edit'
+      .col-sm-10.col-sm-offset-2
+        %p
+          %em Leave password blank to keep it unchanged.
+
+  .form-group
+    = f.label :password, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.input_field :password, class: 'form-control'
+
+  .form-group
+    = f.label :password_confirmation, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.input_field :password_confirmation, class: 'form-control'
+
+  .form-group.actions
+    .col-sm-offset-2.col-sm-10
+      = f.button :submit, 'Submit'
+      - if params[:action] == 'edit'
+        %p.delete-link
+          = link_to 'Delete User', admin_user_path, method: :delete, data: { confirm: 'Are you sure you want to delete this user?' }
