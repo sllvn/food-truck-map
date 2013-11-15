@@ -1,12 +1,15 @@
 %h1 Food Trucks
 
 %p
-  = link_to 'New Food Truck', new_admin_food_truck_path
+  = link_to new_admin_food_truck_path do
+    %span.glyphicon.glyphicon-plus
+    New Food Truck
 
 %table.table.table-striped.table-bordered
   %thead
     %tr
       %th Name
+      %th # Schedule Entries
       %th Last Update
   %tbody
     - @food_trucks.each do |food_truck|
@@ -14,7 +17,12 @@
         %td
           = link_to food_truck.name, edit_admin_food_truck_path(food_truck)
         %td
+          = food_truck.schedule_entries.count
+        %td
           = food_truck.updated_at.strftime('%b %d %Y, %H:%M')
 
 %p
-  = link_to 'New Food Truck', new_admin_food_truck_path
+  = link_to new_admin_food_truck_path do
+    %span.glyphicon.glyphicon-plus
+    New Food Truck
+
