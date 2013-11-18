@@ -4,4 +4,4 @@ food_truck_app.directive "foodTruckPopup", ->
   scope:
     truck: "="
 
-  templateUrl: "/templates/directives/food_truck_popup.html"
+  templateUrl: "/assets/directives/food_truck_popup.html"
