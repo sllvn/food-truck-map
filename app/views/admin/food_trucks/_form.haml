@@ -14,6 +14,14 @@
       = f.input_field :name, class: 'form-control'
 
   .form-group
+    = f.label :tags, class: 'col-sm-2 control-label', for: :food_truck_tag_list
+    .col-sm-10
+      = f.input_field :tag_list, style: 'width: 100%'
+      :coffee
+        window.all_tags = #{@all_tags.to_json}
+
+
+  .form-group
     = f.label :description, class: 'col-sm-2 control-label'
     .col-sm-10
       = f.input_field :description, class: 'form-control', rows: 5

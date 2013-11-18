@@ -32,8 +32,7 @@ $ ->
   if lat and lng
     window.map = new Map('map', lat, lng)
 
-  $('#business_tag_list').select2({ tags: window.all_tags, width: 'copy' }) if $('#business_tag_list')
-  $('#business_location_list').select2({ tags: window.all_locations, width: 'copy' }) if $('#business_location_list')
+  $('#food_truck_tag_list').select2({ tags: window.all_tags, width: 'copy' }) if $('#food_truck_tag_list')
 
 $('#business_lat, #business_lng').change ->
   map.moveMarker($('#business_lat').val(), $('#business_lng').val())

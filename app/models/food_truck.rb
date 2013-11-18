@@ -2,11 +2,13 @@ class FoodTruck < ActiveRecord::Base
   has_many :schedule_entries
   has_many :locations, through: :schedule_entries
 
-  attr_accessible :name, :description, :twitter_username, :facebook_username, :website_url, :schedule_entries_attributes
+  attr_accessible :name, :description, :twitter_username, :facebook_username, :website_url, :schedule_entries_attributes, :tag_list
 
   accepts_nested_attributes_for :schedule_entries, reject_if: :all_blank, allow_destroy: true
 
   default_scope order(:name)
+
+  acts_as_taggable
 
   def type
     # TODO: update this for seattle

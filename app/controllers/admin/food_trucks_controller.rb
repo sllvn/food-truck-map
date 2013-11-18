@@ -14,6 +14,7 @@ class Admin::FoodTrucksController < AdminController
   # GET /food_trucks/new.json
   def new
     @food_truck = FoodTruck.new
+    @all_tags = FoodTruck.tag_counts.collect(&:name)
 
     respond_to do |format|
       format.html
@@ -24,6 +25,7 @@ class Admin::FoodTrucksController < AdminController
   # GET /food_trucks/1/edit
   def edit
     @food_truck = FoodTruck.find(params[:id])
+    @all_tags = FoodTruck.tag_counts.collect(&:name)
   end
 
   # POST /food_trucks
