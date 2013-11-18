@@ -5,9 +5,9 @@ current_location_marker = L.AwesomeMarkers.icon(icon: 'star', markerColor: 'blue
 food_truck_app = angular.module('food_truck_app.controllers, food_truck_app.filters', [])
 
 food_truck_app.controller 'food_trucks_controller', [
-  '$scope', '$compile', '$filter', 'food_truck_service',
+  '$scope', '$compile', '$filter', 'food_truck_service', 'tag_service',
   class FoodTruck
-    constructor: (@$scope, $compile, $filter, food_truck_service) ->
+    constructor: (@$scope, $compile, $filter, food_truck_service, tag_service) ->
       @$scope.$watch 'search_text', =>
         filtered_trucks = $filter('filter')(@active_trucks, $scope.search_text)
         this.remove_all_markers_from_map()
@@ -19,6 +19,8 @@ food_truck_app.controller 'food_trucks_controller', [
       @active_trucks.$then =>
         this.add_trucks_to_map @active_trucks
         this.set_distances_from_location @current_location_marker.getLatLng()
+
+      @all_tags = tag_service.get_all_tags()
 
       @current_location_marker = L.marker()
       @current_location_marker.options.icon = current_location_marker
