@@ -11,39 +11,50 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130828220041) do
+ActiveRecord::Schema.define(:version => 20131108180554) do
 
   create_table "food_trucks", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.integer  "location_id"
-    t.string   "twitter_username"
-    t.string   "facebook_username"
-    t.string   "website_url"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.string   "business_type"
-  end
-
-  create_table "locations", :force => true do |t|
-    t.string   "address"
-    t.float    "latitude"
-    t.float    "longitude"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string    "name"
+    t.text      "description"
+    t.integer   "location_id"
+    t.string    "twitter_username"
+    t.string    "facebook_username"
+    t.string    "website_url"
+    t.timestamp "created_at",        :limit => 6, :null => false
+    t.timestamp "updated_at",        :limit => 6, :null => false
+    t.string    "business_type"
   end
 
   create_table "schedule_entries", :force => true do |t|
-    t.integer  "food_truck_id"
-    t.integer  "location_id"
-    t.string   "day"
-    t.time     "start_time"
-    t.time     "end_time"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.integer   "food_truck_id"
+    t.string    "day"
+    t.time      "start_time",    :limit => 6
+    t.time      "end_time",      :limit => 6
+    t.timestamp "created_at",    :limit => 6, :null => false
+    t.timestamp "updated_at",    :limit => 6, :null => false
+    t.string    "address"
+    t.float     "latitude"
+    t.float     "longitude"
   end
 
   add_index "schedule_entries", ["food_truck_id"], :name => "index_schedule_entries_on_food_truck_id"
-  add_index "schedule_entries", ["location_id"], :name => "index_schedule_entries_on_location_id"
+
+  create_table "users", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0,  :null => false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

@@ -1,0 +1,23 @@
+/*
+//= require_self
+ */
+
+@import "twitter/bootstrap";
+
+.well h3 {
+  margin-top: 0;
+}
+
+.delete-link {
+  margin-top: 2em;
+  text-align: right;
+}
+
+#map {
+  width: 100%;
+  height: 300px;
+}
+
+.login-other-links {
+  margin-top: 1em;
+}

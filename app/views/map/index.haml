@@ -1,0 +1,5 @@
+%p
+  %input{"ng-model" => "search_text", placeholder: "Search", type: "text"}/
+%ul
+  %li{"ng-repeat" => "truck in food_trucks.active_trucks | filter:search_text"}
+    %a{href: "#", "ng-click" => "food_trucks.show_truck(truck)"} {{truck.name}}

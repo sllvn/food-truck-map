@@ -1,4 +1,6 @@
 This is a Rails food truck tracking application, born from OpenSaltLake and Code for America's Civic Engagement Day hackathon (June 1, 2013).
 
-The purpose of this app, while trivial, is to provide an easy-to-understand, highly-visible way for local brigades to market themselves to the general public.
+The purpose of this app is to provide an easy-to-understand, highly-visible way for local brigades to market themselves.
+
+A Trello board for the project is available at https://trello.com/b/kkJ11ZlH/food-truck-map
 

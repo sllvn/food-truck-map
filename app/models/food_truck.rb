@@ -2,6 +2,12 @@ class FoodTruck < ActiveRecord::Base
   has_many :schedule_entries
   has_many :locations, through: :schedule_entries
 
+  attr_accessible :name, :description, :twitter_username, :facebook_username, :website_url, :schedule_entries_attributes
+
+  accepts_nested_attributes_for :schedule_entries, reject_if: :all_blank, allow_destroy: true
+
+  default_scope order(:name)
+
   def type
     # TODO: update this for seattle
     self.business_type.blank? ? 'stand' : self.business_type
@@ -22,27 +28,8 @@ class FoodTruck < ActiveRecord::Base
     days
   end
 
-  def current_location
-    today = schedule[Time.now.strftime("%A").downcase]
-    if today and today.start_time and today.end_time
-      # TODO: write tests for this, this is very fragile
-      # hack around rails time zone weirdness for standard vs daylight time
-      start_time = today.start_time.localtime
-      end_time = today.end_time.localtime
-      offset = Time.now.formatted_offset.to_i - today.start_time.formatted_offset.to_i 
-      start_time += offset.hours
-      end_time += offset.hours
-
-      today.location
-      #{
-      #  address: location.address,
-      #  latitude: location.latitude,
-      #  longitude: location.longitude,
-      #  hours: "#{start_time.strftime('%I:%M %P')} - #{end_time.strftime('%I:%M %P')}"
-      #}
-    else
-      nil
-    end
+  def schedule_for_day(day)
+    self.schedule_entries.where('day = ?', day).first
   end
 
   def self.active_trucks

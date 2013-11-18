@@ -1,0 +1,33 @@
+!!! HTML
+%html
+  %head
+    %title Seattle Food Trucks
+    = stylesheet_link_tag 'admin', media: 'all'
+    = csrf_meta_tags
+  %body
+    %nav(class="navbar navbar-default" role="navigation")
+      %div.container
+        %div.navbar-header
+          %button(type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse")
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a(class="navbar-brand") Seattle Food Trucks
+        - if user_signed_in?
+          %div(class="collapse navbar-collapse navbar-ex1-collapse")
+            %ul(class="nav navbar-nav")
+              %li{class: ('active' if params[:controller] == 'admin/dashboard')}
+                = link_to 'Dashboard', admin_path()
+              %li{class: ('active' if params[:controller] == 'admin/food_trucks')}
+                = link_to 'Food Trucks', admin_food_trucks_path()
+              %li{class: ('active' if params[:controller] == 'admin/users')}
+                = link_to 'Users', admin_users_path()
+            %ul(class="nav navbar-nav navbar-right")
+              %li
+                %a(href='#') Profile
+              %li= link_to 'Logout', destroy_user_session_path, method: :delete
+    %div.container
+      = bootstrap_flash
+      = yield
+    = javascript_include_tag 'admin'

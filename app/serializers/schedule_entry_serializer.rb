@@ -1,4 +1,4 @@
-class LocationSerializer < ActiveModel::Serializer
+class ScheduleEntrySerializer < ActiveModel::Serializer
   attributes :address, :latitude, :longitude, :hours
 
   def hours
