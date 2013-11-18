@@ -1,5 +1,6 @@
 /*
 //= require_self
+//= require select2
 //= require font-awesome
 //= require leaflet
 //= require leaflet.ie
@@ -36,4 +37,8 @@ body, html, .fill-height {
 .beta {
   color: #f66;
   font-weight: bold;
+}
+
+.truck-filter select {
+  width: 100%;
 }

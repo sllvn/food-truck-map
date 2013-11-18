@@ -13,6 +13,8 @@ food_truck_app.controller 'food_trucks_controller', [
         this.remove_all_markers_from_map()
         this.add_trucks_to_map(filtered_trucks)
 
+      @$scope.truck_filter = ['Currently Open']
+
       @active_trucks = food_truck_service.get_all_trucks()
       @active_trucks.$then =>
         this.add_trucks_to_map @active_trucks
@@ -88,6 +90,9 @@ food_truck_app.controller 'food_trucks_controller', [
           maxWidth: 300
         )
         @markers.push marker
+
+    apply_truck_filter: ->
+      # no op
 ]
 
 this.food_truck_app = food_truck_app
