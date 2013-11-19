@@ -50,7 +50,7 @@ food_truck_app.controller 'food_trucks_controller', [
     # map method
     show_truck: (truck) ->
       angular.forEach @markers, (marker) ->
-        marker.openPopup() if marker.truckId is truck.id
+        marker.openPopup() if marker.truck_id is truck.id
 
     # map method
     remove_all_markers_from_map: =>
@@ -64,11 +64,14 @@ food_truck_app.controller 'food_trucks_controller', [
 
         marker = L.marker([truck.current_location.latitude, truck.current_location.longitude])
         marker.options.icon = if truck.type is 'truck' then truck_marker else stand_marker
-        marker.truckId = truck.id
+        marker.truck_id = truck.id
         marker.addTo @map
 
         # TODO: refactoring candidate, this is ugly, is there a better way to reference correct truck?
-        popup = marker.bindPopup("<food-truck-popup truck=\"food_trucks.all_trucks[#{iterator}]\"/>",
+        truck_index = 0
+        angular.forEach @all_trucks, (all_truck, iterator) ->
+          truck_index = iterator if all_truck.id == marker.truck_id
+        popup = marker.bindPopup("<food-truck-popup truck=\"food_trucks.all_trucks[#{truck_index}]\"/>",
           minWidth: 300
           maxWidth: 300
         )
