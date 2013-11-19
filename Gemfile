@@ -18,6 +18,7 @@ gem 'cocoon'
 gem 'leaflet-rails'
 gem 'angularjs-rails'
 gem 'font-awesome-rails'
+gem 'underscore-rails'
 
 group :development do
   gem 'figaro'

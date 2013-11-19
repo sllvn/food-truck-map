@@ -1,14 +1,10 @@
 %p.truck-filter
   %label.control-label(for='filter') Filter
-  %select#filter(style='width: 100%' multiple='multiple'){'ng-model' => 'truck_filter', 'ng-change' => 'food_trucks.apply_truck_filter()'}
-    %optgroup(label='Availability')
-      %option Currently Open
-      %option All Trucks
-    %optgroup(label='Tags'){'ng-repeat' => 'tag in food_trucks.all_tags'}
-      %option {{tag.name}}
+  %select#filter(style='width: 100%' multiple='multiple'){'ng-model' => 'active_tags'}
+    %option{'ng-repeat' => 'tag in food_trucks.all_tags'} {{tag.name}}
 
 %h4 Food Trucks
 %table.table.table-striped.table-bordered.table-hover
-  %tr{"ng-repeat" => "truck in food_trucks.active_trucks"}
+  %tr{"ng-repeat" => "truck in food_trucks.all_trucks | filter_by_tags:active_tags"}
     %td
       %a{href: "#", "ng-click" => "food_trucks.show_truck(truck)"} {{truck.name}}

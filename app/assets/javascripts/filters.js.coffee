@@ -1,17 +1,13 @@
-food_truck_app.filter 'within_range', ->
-  (trucks, min, max) ->
-    # TODO: refactor this into truckService?
-    # we're hitting $digest limit if we do too much filtering
+food_truck_app.filter 'filter_by_tags', ->
+  (trucks, active_tags) ->
     filtered = []
+
     angular.forEach trucks, (truck) ->
-      truck_miles_distance = truck.distance / 1609.34
-      filtered.push truck if truck_miles_distance > min and truck_miles_distance <= max
+      is_active = false
+      intersect = _.intersection active_tags, truck.tag_list
+      is_active = true if active_tags.length == 0 or intersect.length > 0
+
+      filtered.push(truck) if is_active
+
     filtered
 
-food_truck_app.filter 'active', ->
-  (trucks) ->
-    filtered = []
-    # TODO: use _.select()
-    angular.forEach trucks, (truck) ->
-      filtered.push truck if truck.status is 'open'
-    filtered

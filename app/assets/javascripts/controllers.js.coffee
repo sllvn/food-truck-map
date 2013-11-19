@@ -8,17 +8,16 @@ food_truck_app.controller 'food_trucks_controller', [
   '$scope', '$compile', '$filter', 'food_truck_service', 'tag_service',
   class FoodTruck
     constructor: (@$scope, $compile, $filter, food_truck_service, tag_service) ->
-      @$scope.$watch 'search_text', =>
-        filtered_trucks = $filter('filter')(@active_trucks, $scope.search_text)
+      @$scope.$watch 'active_tags', =>
+        filtered_trucks = $filter('filter_by_tags')(@all_trucks, $scope.active_tags)
         this.remove_all_markers_from_map()
         this.add_trucks_to_map(filtered_trucks)
 
-      @$scope.truck_filter = ['Currently Open']
+      @$scope.active_tags = []
 
-      @active_trucks = food_truck_service.get_all_trucks()
-      @active_trucks.$then =>
-        this.add_trucks_to_map @active_trucks
-        this.set_distances_from_location @current_location_marker.getLatLng()
+      @all_trucks = food_truck_service.get_all_trucks()
+      @all_trucks.$then =>
+        this.add_trucks_to_map @all_trucks
 
       @all_tags = tag_service.get_all_tags()
 
@@ -26,15 +25,6 @@ food_truck_app.controller 'food_trucks_controller', [
       @current_location_marker.options.icon = current_location_marker
       @current_location_marker.options.draggable = false
       @current_location_marker.on 'dragend', @current_location_changed
-
-      # TODO: move distances into service
-      @distances = [
-        { display_text: 'Within 1/2 mile', min: 0, max: 0.5 }
-        { display_text: 'Within 1 mile', min: 0.5, max: 1 }
-        { display_text: 'Within 2 miles', min: 1, max: 2 }
-        { display_text: 'Within 5 miles', min: 2, max: 5 }
-        { display_text: 'Beyond', min: 5, max: 100 }
-      ]
 
       # TODO: move map methods into service
       @markers = []
@@ -56,20 +46,11 @@ food_truck_app.controller 'food_trucks_controller', [
     on_location_found: (e) =>
       @current_location_marker.setLatLng e.latlng
       @current_location_marker.addTo(@map)
-      this.set_distances_from_location @current_location_marker.getLatLng()
 
     # map method
     show_truck: (truck) ->
       angular.forEach @markers, (marker) ->
         marker.openPopup() if marker.truckId is truck.id
-
-    # map method
-    set_distances_from_location: (current_lat_lng) ->
-      return unless current_lat_lng
-      angular.forEach @active_trucks, (truck) ->
-        if truck.current_location and truck.current_location.latitude and truck.current_location.longitude
-          truck.distance = current_lat_lng.distanceTo(new L.LatLng(truck.current_location.latitude, truck.current_location.longitude))
-      @$scope.$digest() unless @$scope.$$phase
 
     # map method
     remove_all_markers_from_map: =>
@@ -87,14 +68,11 @@ food_truck_app.controller 'food_trucks_controller', [
         marker.addTo @map
 
         # TODO: refactoring candidate, this is ugly, is there a better way to reference correct truck?
-        popup = marker.bindPopup("<food-truck-popup truck=\"food_trucks.active_trucks[#{iterator}]\"/>",
+        popup = marker.bindPopup("<food-truck-popup truck=\"food_trucks.all_trucks[#{iterator}]\"/>",
           minWidth: 300
           maxWidth: 300
         )
         @markers.push marker
-
-    apply_truck_filter: ->
-      # no op
 ]
 
 this.food_truck_app = food_truck_app
