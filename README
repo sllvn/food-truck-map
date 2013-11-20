@@ -14,6 +14,8 @@ For example, the Seattle instance uses the environment variables (in config/appl
   HOME_LAT: 47.6097
   HOME_LNG: -122.3331
 
+When deploying to Heroku, asset precompilation depends on these environment variables (not enabled by default). To allow access to environment variables, use the command 'heroku labs:enable user-env-compile -a myapp' per instructions at https://devcenter.heroku.com/articles/labs-user-env-compile.
+
 ***
 
 Project Management
