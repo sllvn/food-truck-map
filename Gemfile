@@ -19,6 +19,7 @@ gem 'leaflet-rails'
 gem 'angularjs-rails'
 gem 'font-awesome-rails'
 gem 'underscore-rails'
+gem 'sass-rails', '~> 3.2.3'
 
 group :development do
   gem 'figaro'
@@ -28,7 +29,6 @@ group :development do
 end
 
 group :assets do
-  gem 'sass-rails', '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 end
