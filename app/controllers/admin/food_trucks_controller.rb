@@ -32,7 +32,6 @@ class Admin::FoodTrucksController < AdminController
   # POST /food_trucks.json
   def create
     @food_truck = FoodTruck.new(params[:food_truck])
-    @food_truck.id = FoodTruck.maximum(:id).next
 
     respond_to do |format|
       if @food_truck.save
