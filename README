@@ -2,5 +2,21 @@ This is a Rails food truck tracking application, born from OpenSaltLake and Code
 
 The purpose of this app is to provide an easy-to-understand, highly-visible way for local brigades to market themselves.
 
+***
+
+Configuration
+
+This app uses figaro to manage environment variables, and requires the presence of the variables INSTANCE_TITLE, HOME_LAT, and HOME_LNG.
+
+For example, the Seattle instance uses the environment variables (in config/application.yml):
+
+  INSTANCE_TITLE: Seattle Food Trucks
+  HOME_LAT: 47.6097
+  HOME_LNG: -122.3331
+
+***
+
+Project Management
+
 A Trello board for the project is available at https://trello.com/b/kkJ11ZlH/food-truck-map
 

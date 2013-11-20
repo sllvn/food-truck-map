@@ -7,6 +7,7 @@ gem 'pg'
 gem 'active_model_serializers'
 gem 'devise'
 gem 'acts-as-taggable-on'
+gem 'figaro'
 
 # front-end gems
 gem 'haml'
@@ -22,7 +23,6 @@ gem 'underscore-rails'
 gem 'sass-rails', '~> 3.2.3'
 
 group :development do
-  gem 'figaro'
   gem 'pry-rails'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'

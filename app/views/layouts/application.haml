@@ -4,7 +4,7 @@
     %meta{charset: "utf-8"}/
     %meta{content: "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
     %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
-    %title Seattle Food Trucks
+    %title= ENV['INSTANCE_TITLE'] || 'Food Truck Map'
     = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
   %body{"ng-app" => "food_truck_app", "ng-controller" => "food_trucks_controller as food_trucks"}

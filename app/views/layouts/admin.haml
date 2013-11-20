@@ -1,7 +1,7 @@
 !!! HTML
 %html
   %head
-    %title Seattle Food Trucks
+    %title= ENV['INSTANCE_TITLE'] || 'Food Truck Map'
     = stylesheet_link_tag 'admin', media: 'all'
     = csrf_meta_tags
   %body
@@ -13,7 +13,7 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a(class="navbar-brand") Seattle Food Trucks
+          %a(class="navbar-brand")= ENV['INSTANCE_TITLE'] || 'Food Truck Map'
         - if user_signed_in?
           %div(class="collapse navbar-collapse navbar-ex1-collapse")
             %ul(class="nav navbar-nav")
